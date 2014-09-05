@@ -1,0 +1,57 @@
+Updates made to tictactoe3D Project
+
+29 August 2014 
+-> Updated and changed the API Key in setApiKey() method, and also added the API root in gapi.client.load() method. This removed the 'UnCaught TypeError' on localhost, but not on appspot.
+   (The JS console flashes the error 'Failed to load resource: The server responded with a status of 404 (Not Found).
+   
+-> Changed the web.xml file to include the CONFIDENTIAL user-data-constraint. This did not remove the 'Uncaught TypeError' on appspot.
+   (But this time, the JS console flashes the error 'Failed to load resource: The server responded with a status of 403 (Forbidden). On clicking
+   on the error message, a JSON object is returned looks something like this-
+   {"error":{"errors":[{"domain":"global","reason":"sslRequired","message":"SSL is required to perform this operation."}],"code":403,"message":"SSL is required to perform this operation."}}
+   (Looks like our app needs SSL!!!)
+   
+-> Perform update operation. Uploaded the app on appspot. And found out that the error was removed, and there was no 'Failed to load resource error'.
+   
+-> A new error has been introduced in the app. This error exists both on appspot as well as localhost.
+   This error is most probably related to JSON parsing. After clicking on any square, the server returns a JSON object, which looks like this-
+   {code: 400, message: "com.google.appengine.repackaged.org.codehaus.jacks…nce chain: com.tictactoe3d.game.Board2D["state"])", data: Array[1], error: Object}
+   
+   The full error message is-
+   om.google.appengine.repackaged.org.codehaus.jackson.map.JsonMappingException: Can not deserialize instance of java.lang.String out of START_ARRAY token↵ at [Source: N/A; line: -1, column: -1] (through reference chain: com.tictactoe3d.game.Board2D["state"])"
+__proto__: Object
+
+31 August 2014
+-> Made a temporary change to the code of render.js, and called tictactoe2D.simpleMethod() instead of compute2DMove(). On executing it, the server returned a JSON object
+   with the state as one of its key-value pair. This intensifies the doubt that call to compute2DMove() is failing probably because of the JS array
+   passed as an argument instead of a string, which is expected by compute2DMove().
+   
+-> Added a Board2D argument to simpleMethod() and called it with the same JSON object as an argument, and saw the same error in the console. This CONFIRMS
+   that a JS array being sent to the method is causing it and compute2DMove() to fail.
+   
+-> Changed the code of render.js to use the .join() method of JavaScript to convert the board array into a string. This fixed the JsonMappingException
+   that plagued the app. And the server responded with the the proper state variable, which can also be seen in the console.
+   
+2 September 2014
+-> Made major changes to render.js. Created separate helper functions for parsing the board string and handling the click event of the squares. And
+   added functionality to call the compute2DMove() function inside the click event handler.
+   
+3 September 2014
+-> Added the checkForVictory() function in render.js. Earlier decided to create it as an endpoint method, but that idea was dropped.
+   So, created the function with some 'inspiration' from the google sample project, and executed it. The function seems to work almost fine,
+   but has a bug. It is actually showing a victory position as a TIE, and that is a bug. Will now debug it.
+   
+-> The game is up and running, and fully functional too!! The latest version has been uploaded on appspot, and very soon we can start uploading
+   its own github repository, and get a GNU GPL license for it too....
+   
+-> A new bug has been discovered.
+   The game is able to detect the victory of the user, but not of the computer. Even when there are 3 Os in a single row, coloumn, or a diagonal,
+   the game simply does nothing. To fix this, we most probably need to make changes in the checkForVictory() function, and also call its once more
+   when the board is updated.
+   
+-> Changed the values of the status variables WON, LOST, TIE, and UNFINSHED. And also used the logical OR instead of logical AND operator in
+   checkForVictory() method. This fixed the previous bug of not detecting the computer's victory. The game is now FULLY FUNCTIONAL!!, and can be
+   used....
+   
+4 September 2014
+-> Decided to get a GNU GPL license for the project. Added the license information in all source files, and also included the LICENSE.txt in the
+   root folder of the project.

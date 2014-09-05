@@ -1,0 +1,57 @@
+<!Doctype html>
+<html>
+<head>
+	<title>Tic Tac Toe 3D</title>
+    <meta http-equiv="content-type" charset="utf-8" content="text/html"/>
+	<link href="css/main.css" rel="stylesheet" type="text/css">
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
+    <script type="text/javascript">
+		function afterLoad()	{
+			console.log("Our API loaded successfully");
+		}
+    
+    	function init()	{
+    		gapi.client.setApiKey('AIzaSyAKjDAYSatb3cS_DxlKpjc5K6yuvfGN4Fs');
+    		gapi.client.load('tictactoe2D', 'v1', afterLoad, '//' + window.location.host + '/_ah/api');	
+    	}
+    </script>
+    
+    <script src="https://apis.google.com/js/client.js?onload=init"></script>
+    <script type="text/javascript" src="js/render.js"></script>
+</head>
+
+<body>
+
+<header>
+	<h1>Tic Tac Toe 3D</h1>
+    <h3>Your favorite pass-time of childhood, goes 3D!!</h3>
+</header>
+
+<section id="board">
+	<table>
+		<tr>
+			<td class="noTop noLeft" id="topleft">-</td>
+			<td class="noTop">-</td>
+			<td class="noTop noRight">-</td>
+		</tr>
+		<tr>
+			<td class="noLeft">-</td>
+			<td>-</td>
+			<td class="noRight">-</td>
+		</tr>
+		<tr>
+			<td class="noBottom noLeft">-</td>
+			<td class="noBottom">-</td>
+			<td class="noBottom noRight">-</td>
+		</tr>
+	</table>
+</section>
+
+<footer>
+	<p><b>Created by:</b> Prateek Mathur</p>
+</footer>
+
+</body>
+</html>
