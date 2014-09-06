@@ -17,6 +17,7 @@
 header, footer	{
 	text-align : center;
 	background : #D3E3E8; 
+	font-family : "Cambria", Times, serif;
 }
 
 body	{
@@ -35,6 +36,12 @@ body	{
 	display: box;
 	box-orient: vertical;
 	box-align: center;
+	font-family: "Calibri", Times, serif;
+}
+
+#gameResult	{
+	font-size : 3em;
+	font-family : "Calibri", Times, serif;
 }
 
 /* Board styles */

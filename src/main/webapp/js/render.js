@@ -87,7 +87,7 @@ var clickHandler = function(e)	{
 //		console.log("That'a tie");
 //	}
 	if (gameStatus == UNFINISHED)	{
-		console.log("It ain't over, my friend!!");
+		// console.log("It ain't over, my friend!!");
 		
 		// Construct the JSON-RPC request
 		var request = gapi.client.tictactoe2D.compute2DMove({'state': boardString});
@@ -209,12 +209,12 @@ function getStringsAtPositions(boardString, first, second, third) {
  */
 function handleFinish(gameStatus)	{
 	if (gameStatus == WON)	{
-		alert("You Won!!");
+		document.getElementById('gameResult').innerHTML = 'YOU WON!!!';
 	}
 	else if (gameStatus == LOST)	{
-		alert("You Lost :(");
+		document.getElementById('gameResult').innerHTML = 'You Lost :(';
 	}
 	else	{
-		alert("Game tied");
+		document.getElementById('gameResult').innerHTML = 'Game Tied!';
 	}
 }
