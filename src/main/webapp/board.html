@@ -7,19 +7,9 @@
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     
-    <script type="text/javascript">
-		function afterLoad()	{
-			console.log("Our API loaded successfully");
-		}
+    <script src="js/render.js"></script>
     
-    	function init()	{
-    		gapi.client.setApiKey('AIzaSyAKjDAYSatb3cS_DxlKpjc5K6yuvfGN4Fs');
-    		gapi.client.load('tictactoe2D', 'v1', afterLoad, '//' + window.location.host + '/_ah/api');	
-    	}
-    </script>
-    
-    <script src="https://apis.google.com/js/client.js?onload=init"></script>
-    <script type="text/javascript" src="js/render.js"></script>
+  	<script src="https://apis.google.com/js/client.js?onload=init"></script>
 </head>
 
 <body>

@@ -42,6 +42,15 @@ var LOST = 2;
 var TIE = 3;
 
 /**
+ * This function is called as soon the Google Client JavaScript API loads.
+ * It sets the API key, post which it loads our tictactoe2D API.
+ */
+function init()	{
+	gapi.client.setApiKey('AIzaSyAKjDAYSatb3cS_DxlKpjc5K6yuvfGN4Fs');
+	gapi.client.load('tictactoe2D', 'v1', null, '//' + window.location.host + '/_ah/api');	
+}
+
+/**
 * Associate click event handler with all squares
 */
 $(document).ready(function() {
