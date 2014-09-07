@@ -2,18 +2,16 @@ Tic Tac Toe 3D
 ==================
 
 The Tic Tac Toe 3D Project allows users to play the very popular game Tic Tac Toe in 3D.
+It uses Google App Engine as its backend, and HTML5/CSS3/jQuery to create the front-end.
 
-- [App Engine][1]
+Currently the game is available only in 2D, but the 3D update will roll out soon!!
+The game will feature a cool 3D UI, and will also support saving the game performance of a player in cloud.
+A mobile version of the same game is also being planned.
 
-- [Java][2]
-
-- [Google Cloud Endpoints][3]
-- [Google App Engine Maven plugin][4]
+You can play the game here- [Tic Tac Toe 3D] [1]
 
 
-[1]: https://developers.google.com/appengine
-[2]: http://java.com/en/
-[3]: https://developers.google.com/appengine/docs/java/endpoints/
-[4]: https://developers.google.com/appengine/docs/java/tools/maven
-[5]: https://localhost:8080/_ah/api/explorer
-[6]: https://console.developers.google.com/
+
+
+
+[1]: https://tic-tac-toe-p.appspot.com/
