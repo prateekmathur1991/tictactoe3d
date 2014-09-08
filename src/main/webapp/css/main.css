@@ -39,6 +39,11 @@ body	{
 	font-family: "Calibri", Times, serif;
 }
 
+img	{
+	height : 8em;
+	width : 8em;
+}
+
 #gameResult	{
 	font-size : 3em;
 	font-family : "Calibri", Times, serif;

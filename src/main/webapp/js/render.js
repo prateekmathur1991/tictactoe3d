@@ -42,6 +42,16 @@ var LOST = 2;
 var TIE = 3;
 
 /**
+ * <img> tag string for setting O
+ */
+var stringX = "<img src=img/X.png></img>";
+
+/**
+ * <img> tag string for setting O
+ */
+var stringO = "<img src=img/O.png></img>";
+
+/**
  * This function is called as soon the Google Client JavaScript API loads.
  * It sets the API key, post which it loads our tictactoe2D API.
  */
@@ -69,7 +79,7 @@ $(document).ready(function() {
 var clickHandler = function(e)	{
 	// Set the 'X' character on the square which is clicked
 	var square = e.target;
-	square.innerHTML = 'X';
+	square.innerHTML = stringX;
 	
 	// Make sure that the square just clicked upon will not be clicked upon again
 	square.removeEventListener('click', clickHandler);
@@ -80,15 +90,8 @@ var clickHandler = function(e)	{
 	// Check for victory
 	var gameStatus = checkForVictory(boardString);
 	
-//	if (gameStatus == TIE)	{
-//		// TODO
-//		// Add a handleFinish() function that handles the post game scenario,
-//		// and call it here.
-//		console.log("That'a tie");
-//	}
+	// Execute and construct a request only if the game has to continue
 	if (gameStatus == UNFINISHED)	{
-		// console.log("It ain't over, my friend!!");
-		
 		// Construct the JSON-RPC request
 		var request = gapi.client.tictactoe2D.compute2DMove({'state': boardString});
 		
@@ -115,7 +118,18 @@ function getBoardString()	{
 	
 	var squares = document.querySelectorAll('td');
 	for (var i=0; i<squares.length; i++)	{
-		board.push(squares[i].innerHTML);
+		var string = squares[i].innerHTML;
+		
+		// If there is an X in the square, the innerHTML string will contain the <img>
+		// tag with the character 'X' somewhere in it
+		if (string.indexOf('X') != -1)	{
+			board.push('X');
+		}
+		else if (string.indexOf('O') != -1)	{
+			board.push('O');
+		}
+		else
+			board.push('-');
 	}
 	
 	return board.join('');
@@ -130,7 +144,11 @@ function updateBoard(boardString)	{
 	var squares = document.querySelectorAll('td');
 	for (var i=0; i<squares.length; i++)	{
 		var square = squares[i];
-		square.innerHTML = boardString.charAt(i);
+		
+		// Wherever there is an 'O' in the string, display the image of O
+		if (boardString.charAt(i) == 'O')	{
+			square.innerHTML = stringO;
+		}
 	}
 }
 
