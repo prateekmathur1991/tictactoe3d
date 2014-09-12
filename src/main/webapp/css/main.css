@@ -18,6 +18,7 @@ header, footer	{
 	text-align : center;
 	background : #D3E3E8; 
 	font-family : "Cambria", Times, serif;
+	font-size: 20px;
 }
 
 body	{
@@ -36,7 +37,36 @@ body	{
 	display: box;
 	box-orient: vertical;
 	box-align: center;
+}
+
+#warning	{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-box-align: center;
+	display: -moz-box;
+	-moz-box-orient: vertical;
+	-moz-box-align: center;
+	display: box;
+	box-orient: vertical;
+	box-align: center;
 	font-family: "Calibri", Times, serif;
+	font-size: 2em;
+}
+
+#signIn	{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-box-align: center;
+	display: -moz-box;
+	-moz-box-orient: vertical;
+	-moz-box-align: center;
+	display: box;
+	box-orient: vertical;
+	box-align: center;
+}
+
+.hidden	{
+	display: none !important;
 }
 
 img	{
@@ -48,6 +78,7 @@ img	{
 	font-size : 3em;
 	font-family : "Calibri", Times, serif;
 }
+
 
 /* Board styles */
 table {

@@ -52,7 +52,19 @@ var stringX = "<img src=img/X.png></img>";
 var stringO = "<img src=img/O.png></img>";
 
 /**
- * This function is called as soon the Google Client JavaScript API loads.
+ * Client ID of the application (from the APIs Console).
+ * @type {string}
+ */
+var CLIENT_ID = '57795119450-mnvhk8v12sltc03s667fsven0pkvcb28.apps.googleusercontent.com';
+
+/**
+ * Scopes used by the application.
+ * @type {string}
+ */
+var SCOPES = 'https://www.googleapis.com/auth/userinfo.email ' + 'https://www.googleapis.com/auth/plus.login';
+
+/**
+ * This function is called after the Google Client JavaScript API loads.
  * It sets the API key, post which it loads our tictactoe2D API.
  */
 function init()	{
@@ -60,16 +72,57 @@ function init()	{
 	gapi.client.load('tictactoe2D', 'v1', null, '//' + window.location.host + '/_ah/api');	
 }
 
+$(document).ready(function() {
+	associateClickHandler();
+	
+	// Recommended code to load the Google+ script
+	(function() {
+	 var po = document.createElement('script'); 
+	 po.type = 'text/javascript'; 
+	 po.async = true;
+	 po.src = 'https://apis.google.com/js/client:plusone.js?onload=renderButton';
+	 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	})();
+});
+
+/**
+ * Renders the Google+ Sign-In button with given parameters
+ */
+function renderButton()	{
+	gapi.signin.render('signIn', {
+	    'callback': signInCallback,
+	    'clientid': CLIENT_ID,
+	    'cookiepolicy': 'single_host_origin',
+	    'requestvisibleactions': 'http://schemas.google.com/AddActivity',
+	    'scope': SCOPES
+	  });
+}
+
+/**
+ * Handles sign in response of the user
+ */
+function signInCallback(authResult)	{
+	if (authResult.access_token && authResult.id_token)	{
+			document.getElementById('signIn').classList.add('hidden');
+			document.getElementById('warning').classList.add('hidden');
+			document.getElementById('board').classList.remove('hidden');
+	}
+	else if (authResult.error)	{
+		console.log("Error occoured "+authResult.error);
+	}
+
+}
+
 /**
 * Associate click event handler with all squares
 */
-$(document).ready(function() {
+function associateClickHandler()	{
 	var squares = document.querySelectorAll('td');
 	for (var i=0; i<squares.length; i++)	{
 		var square = squares[i];
 		square.addEventListener('click', clickHandler);
 	}
-});
+}
 
 /**
 * Handler for the click event of all squares
