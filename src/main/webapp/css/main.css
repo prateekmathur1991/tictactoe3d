@@ -26,7 +26,7 @@ body	{
 	margin : 0px;
 }
 
-#board	{
+#board, #signInSection	{
 	margin: 1em;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
@@ -39,30 +39,9 @@ body	{
 	box-align: center;
 }
 
-#warning	{
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-box-align: center;
-	display: -moz-box;
-	-moz-box-orient: vertical;
-	-moz-box-align: center;
-	display: box;
-	box-orient: vertical;
-	box-align: center;
-	font-family: "Calibri", Times, serif;
-	font-size: 2em;
-}
-
-#signIn	{
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-box-align: center;
-	display: -moz-box;
-	-moz-box-orient: vertical;
-	-moz-box-align: center;
-	display: box;
-	box-orient: vertical;
-	box-align: center;
+#signInSection #warning	{
+	font-family : "Calibri", Times, serif;
+	font-size : 20px;
 }
 
 .hidden	{
