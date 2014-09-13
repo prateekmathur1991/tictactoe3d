@@ -73,7 +73,6 @@ function init()	{
 }
 
 $(document).ready(function() {
-	associateClickHandler();
 	
 	// Recommended code to load the Google+ script
 	(function() {
@@ -83,6 +82,8 @@ $(document).ready(function() {
 	 po.src = 'https://apis.google.com/js/client:plusone.js?onload=renderButton';
 	 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 	})();
+	
+	associateClickHandler();
 });
 
 /**
@@ -102,10 +103,14 @@ function renderButton()	{
  * Handles sign in response of the user
  */
 function signInCallback(authResult)	{
-	if (authResult.access_token && authResult.id_token)	{
-			document.getElementById('signIn').classList.add('hidden');
-			document.getElementById('warning').classList.add('hidden');
-			document.getElementById('board').classList.remove('hidden');
+	// The authResult object will contain an access token and id_token if
+	// the user has signed in
+	if (authResult.access_token && authResult.id_token)	{	
+		// Hide the warning and sign-in button, and show the game board and restart button upon successful sign-in
+		document.getElementById('signInSection').classList.add('hidden');
+		
+		document.getElementById('board').classList.remove('hidden');
+		document.getElementById('restart').classList.remove('hidden');
 	}
 	else if (authResult.error)	{
 		console.log("Error occoured "+authResult.error);
@@ -287,5 +292,19 @@ function handleFinish(gameStatus)	{
 	}
 	else	{
 		document.getElementById('gameResult').innerHTML = 'Game Tied!';
+	}
+}
+
+/**
+ * Restarts the game.
+ * It simply sets all the squares to contain '-' again.
+ */
+function restartGame()	{
+	if (confirm("Are you sure you want to restart the game?") == true)	{
+		var squares = document.querySelectorAll('td');
+		for (var i=0; i<squares.length; i++)	{
+			var square = squares[i];
+			square.innerHTML = '-';
+		}
 	}
 }

@@ -19,9 +19,10 @@
     <h3>Your favorite pass-time of childhood, goes 3D!!</h3>
 </header>
 
-<div id="warning">You must sign in to play</div>
-
-<center><div id="signIn"></div></center>
+<section id="signInSection">
+	<div id="warning">You must sign in to play</div>
+	<div id="signIn"></div>
+</section>
 
 <section id="board" class="hidden">
 	<table>
@@ -42,7 +43,9 @@
 		</tr>
 	</table>
 	
-	<div id="gameResult"></div>
+	<section id="gameResult"></section>
+	
+	<a id="restart" href="" onclick="restartGame()" class="hidden"><font size="5px">Restart Game</font></a>
 </section>
 
 <footer>
