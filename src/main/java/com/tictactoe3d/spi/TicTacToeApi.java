@@ -26,11 +26,11 @@ import com.tictactoe3d.game.Board;
 import java.util.Random;
 
 /**
-  * <p>Endpoint API for 2D Tic Tac Toe.<p>
+  * <p>Endpoint API for Tic Tac Toe.<p>
   * 
-  * <p>Contains functions for 2D, i;e the normal version of Tic Tac Toe.</p>
+  * @author Prateek Mathur
   */
-@Api(name="tictactoe2D",
+@Api(name="tictactoe",
 	version="v1",
 	scopes=Constants.EMAIL_SCOPE,
 	clientIds={
@@ -39,7 +39,7 @@ import java.util.Random;
 	},
 	description="API for 2D Tic Tac Toe"
 )
-public class TicTacToe2DApi {
+public class TicTacToeApi {
 	private static final char X = 'X';
 	private static final char O = 'O';
 	private static final char DASH = '-';
@@ -51,7 +51,6 @@ public class TicTacToe2DApi {
 	 * @return A Board object with the updated Board state
 	 */
 	@ApiMethod(name="compute2DMove", httpMethod=HttpMethod.POST)
-	@Deprecated
 	public Board compute2DMove(Board board)	{
 		// Convert the String representation of the board in a 2D array
 		char [][] boardArray = convertBoardTo2D(board.getState());
@@ -81,11 +80,6 @@ public class TicTacToe2DApi {
 		updatedBoard.setState(builder.toString());
 		
 		return updatedBoard;
-	}
-	
-	@ApiMethod(name="compute3DMove", httpMethod=HttpMethod.POST)
-	public Board compute3DMove(Board state)	{
-		
 	}
 	
 	private char[][] convertBoardTo2D(String boardString)	{
