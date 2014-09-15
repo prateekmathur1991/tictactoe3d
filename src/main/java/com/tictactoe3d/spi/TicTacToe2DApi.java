@@ -21,7 +21,7 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 
 import com.tictactoe3d.Constants;
-import com.tictactoe3d.game.Board2D;
+import com.tictactoe3d.game.Board;
 
 import java.util.Random;
 
@@ -51,7 +51,8 @@ public class TicTacToe2DApi {
 	 * @return A Board object with the updated Board state
 	 */
 	@ApiMethod(name="compute2DMove", httpMethod=HttpMethod.POST)
-	public Board2D compute2DMove(Board2D board)	{
+	@Deprecated
+	public Board compute2DMove(Board board)	{
 		// Convert the String representation of the board in a 2D array
 		char [][] boardArray = convertBoardTo2D(board.getState());
 		
@@ -76,13 +77,16 @@ public class TicTacToe2DApi {
 			builder.append(String.valueOf(boardArray[i]));
 		}
 		
-		Board2D updatedBoard = new Board2D();
+		Board updatedBoard = new Board();
 		updatedBoard.setState(builder.toString());
 		
 		return updatedBoard;
 	}
 	
-	
+	@ApiMethod(name="compute3DMove", httpMethod=HttpMethod.POST)
+	public Board compute3DMove(Board state)	{
+		
+	}
 	
 	private char[][] convertBoardTo2D(String boardString)	{
 		char[][] boardArray = new char[3][3];
