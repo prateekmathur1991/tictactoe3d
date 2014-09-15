@@ -34,7 +34,7 @@ import com.googlecode.objectify.annotation.Id;
 public class Player {
 	
 	@Id
-	private String userId;
+	private String playerId;
 	
 	private String name;
 	private int gamesPlayed;
@@ -58,7 +58,7 @@ public class Player {
 		}
 		
 		this.name=name;
-		userId=user.getUserId();
+		playerId=user.getUserId();
 		
 		gamesPlayed=0;
 		wonGames=0;
