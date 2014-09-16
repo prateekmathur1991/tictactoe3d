@@ -115,6 +115,10 @@ function signInCallback(authResult)	{
 	else if (authResult.error)	{
 		console.log("Error occoured "+authResult.error);
 	}
+	
+	if (authResult == null)	{
+		consolelog("The user did not sign in");
+	}
 
 }
 

@@ -53,7 +53,7 @@ public class TicTacToeApi {
 	@ApiMethod(name="compute2DMove", httpMethod=HttpMethod.POST)
 	public Board compute2DMove(Board board)	{
 		// Convert the String representation of the board in a 2D array
-		char [][] boardArray = convertBoardTo2D(board.getState());
+		char [][] boardArray = convertBoardTo2DArray(board.getState());
 		
 		// Count the no. of free blocks
 		 int freeBlocks = 0;
@@ -67,7 +67,7 @@ public class TicTacToeApi {
 		 
 		// Given the array of blocks and no. of free blocks, we can
 		// find the next optimal move
-		boardArray = addMove(boardArray, freeBlocks);
+		boardArray = add2DMove(boardArray, freeBlocks);
 		   
 		// After adding the computer's move, we need to build a
 		// string of the board, and return it
@@ -82,7 +82,7 @@ public class TicTacToeApi {
 		return updatedBoard;
 	}
 	
-	private char[][] convertBoardTo2D(String boardString)	{
+	private char[][] convertBoardTo2DArray(String boardString)	{
 		char[][] boardArray = new char[3][3];
 	    char[] chars = boardString.toCharArray();
 	    if (chars.length == 9) {
@@ -94,7 +94,7 @@ public class TicTacToeApi {
 	    return boardArray;
 	}
 	
-	private char[][] addMove(char[][] boardArray, int freeBlocks)	{
+	private char[][] add2DMove(char[][] boardArray, int freeBlocks)	{
 		int index = new Random().nextInt(freeBlocks) + 1;
 		for (int i = 0; i < boardArray.length; i++)	{
 	      for (int j = 0; j < boardArray.length; j++)	{
@@ -112,5 +112,46 @@ public class TicTacToeApi {
 	   return boardArray;
 	}
 	
+	/**
+	 * Computes the next move of the computer on a 3D board.
+	 * 
+	 * @param A Board object representing the current board state
+	 * @return A Board object with the updated Board state
+	 */
+	@ApiMethod(name="compute3DMove", httpMethod=HttpMethod.POST)
+	public Board compute3DMove(Board state)	{
+		char[] boardArray = (state.getState()).toCharArray();
+		
+		int freeBlocks = 0;
+		int len = boardArray.length;
+		for (int i = 0; i<len; i++)	{
+			if (boardArray[i] != X && boardArray[i] != O)	{
+				freeBlocks++;
+			}
+		}
+		
+		boardArray = add3DMove(boardArray, freeBlocks);
+		
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < boardArray.length; i++)	{
+			builder.append(String.valueOf(boardArray[i]));
+		}
+		
+		Board updatedBoard = new Board();
+		updatedBoard.setState(builder.toString());
+		
+		return updatedBoard;
+	}
+	
+	private char[] add3DMove(char[] boardArray, int freeBlocks)	{
+		int index; 
+		while (true)	{
+			index = new Random().nextInt(freeBlocks) + 1;
+			if (boardArray[index] == DASH)	{
+				boardArray[index] = O;
+				return boardArray;
+			}
+		}
+	}
 }
 
