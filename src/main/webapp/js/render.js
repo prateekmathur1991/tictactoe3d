@@ -69,7 +69,7 @@ var SCOPES = 'https://www.googleapis.com/auth/userinfo.email ' + 'https://www.go
  */
 function init()	{
 	gapi.client.setApiKey('AIzaSyAKjDAYSatb3cS_DxlKpjc5K6yuvfGN4Fs');
-	gapi.client.load('tictactoe2D', 'v1', null, '//' + window.location.host + '/_ah/api');	
+	gapi.client.load('tictactoe', 'v1', null, '//' + window.location.host + '/_ah/api');	
 }
 
 $(document).ready(function() {
@@ -115,6 +115,10 @@ function signInCallback(authResult)	{
 	else if (authResult.error)	{
 		console.log("Error occoured "+authResult.error);
 	}
+	
+	if (authResult == null)	{
+		consolelog("The user did not sign in");
+	}
 
 }
 
@@ -151,7 +155,7 @@ var clickHandler = function(e)	{
 	// Execute and construct a request only if the game has to continue
 	if (gameStatus == UNFINISHED)	{
 		// Construct the JSON-RPC request
-		var request = gapi.client.tictactoe2D.compute2DMove({'state': boardString});
+		var request = gapi.client.tictactoe.compute2DMove({'state': boardString});
 		
 		// Execute the request, and update the board with the new board state
 		request.execute(function (response)	{

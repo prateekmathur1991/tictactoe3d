@@ -21,16 +21,16 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 
 import com.tictactoe3d.Constants;
-import com.tictactoe3d.game.Board2D;
+import com.tictactoe3d.game.Board;
 
 import java.util.Random;
 
 /**
-  * <p>Endpoint API for 2D Tic Tac Toe.<p>
+  * <p>Endpoint API for Tic Tac Toe.<p>
   * 
-  * <p>Contains functions for 2D, i;e the normal version of Tic Tac Toe.</p>
+  * @author Prateek Mathur
   */
-@Api(name="tictactoe2D",
+@Api(name="tictactoe",
 	version="v1",
 	scopes=Constants.EMAIL_SCOPE,
 	clientIds={
@@ -39,7 +39,7 @@ import java.util.Random;
 	},
 	description="API for 2D Tic Tac Toe"
 )
-public class TicTacToe2DApi {
+public class TicTacToeApi {
 	private static final char X = 'X';
 	private static final char O = 'O';
 	private static final char DASH = '-';
@@ -51,9 +51,9 @@ public class TicTacToe2DApi {
 	 * @return A Board object with the updated Board state
 	 */
 	@ApiMethod(name="compute2DMove", httpMethod=HttpMethod.POST)
-	public Board2D compute2DMove(Board2D board)	{
+	public Board compute2DMove(Board board)	{
 		// Convert the String representation of the board in a 2D array
-		char [][] boardArray = convertBoardTo2D(board.getState());
+		char [][] boardArray = convertBoardTo2DArray(board.getState());
 		
 		// Count the no. of free blocks
 		 int freeBlocks = 0;
@@ -67,7 +67,7 @@ public class TicTacToe2DApi {
 		 
 		// Given the array of blocks and no. of free blocks, we can
 		// find the next optimal move
-		boardArray = addMove(boardArray, freeBlocks);
+		boardArray = add2DMove(boardArray, freeBlocks);
 		   
 		// After adding the computer's move, we need to build a
 		// string of the board, and return it
@@ -76,15 +76,13 @@ public class TicTacToe2DApi {
 			builder.append(String.valueOf(boardArray[i]));
 		}
 		
-		Board2D updatedBoard = new Board2D();
+		Board updatedBoard = new Board();
 		updatedBoard.setState(builder.toString());
 		
 		return updatedBoard;
 	}
 	
-	
-	
-	private char[][] convertBoardTo2D(String boardString)	{
+	private char[][] convertBoardTo2DArray(String boardString)	{
 		char[][] boardArray = new char[3][3];
 	    char[] chars = boardString.toCharArray();
 	    if (chars.length == 9) {
@@ -96,7 +94,7 @@ public class TicTacToe2DApi {
 	    return boardArray;
 	}
 	
-	private char[][] addMove(char[][] boardArray, int freeBlocks)	{
+	private char[][] add2DMove(char[][] boardArray, int freeBlocks)	{
 		int index = new Random().nextInt(freeBlocks) + 1;
 		for (int i = 0; i < boardArray.length; i++)	{
 	      for (int j = 0; j < boardArray.length; j++)	{
@@ -114,5 +112,46 @@ public class TicTacToe2DApi {
 	   return boardArray;
 	}
 	
+	/**
+	 * Computes the next move of the computer on a 3D board.
+	 * 
+	 * @param A Board object representing the current board state
+	 * @return A Board object with the updated Board state
+	 */
+	@ApiMethod(name="compute3DMove", httpMethod=HttpMethod.POST)
+	public Board compute3DMove(Board state)	{
+		char[] boardArray = (state.getState()).toCharArray();
+		
+		int freeBlocks = 0;
+		int len = boardArray.length;
+		for (int i = 0; i<len; i++)	{
+			if (boardArray[i] != X && boardArray[i] != O)	{
+				freeBlocks++;
+			}
+		}
+		
+		boardArray = add3DMove(boardArray, freeBlocks);
+		
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < boardArray.length; i++)	{
+			builder.append(String.valueOf(boardArray[i]));
+		}
+		
+		Board updatedBoard = new Board();
+		updatedBoard.setState(builder.toString());
+		
+		return updatedBoard;
+	}
+	
+	private char[] add3DMove(char[] boardArray, int freeBlocks)	{
+		int index; 
+		while (true)	{
+			index = new Random().nextInt(freeBlocks) + 1;
+			if (boardArray[index] == DASH)	{
+				boardArray[index] = O;
+				return boardArray;
+			}
+		}
+	}
 }
 

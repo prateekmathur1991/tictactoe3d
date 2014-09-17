@@ -14,10 +14,10 @@ Updates made to tictactoe3D Project
    
 -> A new error has been introduced in the app. This error exists both on appspot as well as localhost.
    This error is most probably related to JSON parsing. After clicking on any square, the server returns a JSON object, which looks like this-
-   {code: 400, message: "com.google.appengine.repackaged.org.codehaus.jacks…nce chain: com.tictactoe3d.game.Board2D["state"])", data: Array[1], error: Object}
+   {code: 400, message: "com.google.appengine.repackaged.org.codehaus.jacks…nce chain: com.tictactoe3d.game.Board["state"])", data: Array[1], error: Object}
    
    The full error message is-
-   om.google.appengine.repackaged.org.codehaus.jackson.map.JsonMappingException: Can not deserialize instance of java.lang.String out of START_ARRAY token↵ at [Source: N/A; line: -1, column: -1] (through reference chain: com.tictactoe3d.game.Board2D["state"])"
+   om.google.appengine.repackaged.org.codehaus.jackson.map.JsonMappingException: Can not deserialize instance of java.lang.String out of START_ARRAY token↵ at [Source: N/A; line: -1, column: -1] (through reference chain: com.tictactoe3d.game.Board["state"])"
 __proto__: Object
 
 31 August 2014

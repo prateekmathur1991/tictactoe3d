@@ -27,12 +27,14 @@ import com.googlecode.objectify.annotation.Id;
  * The total no. of games played by the player, along with
  * the no. of won games, will be saved in the datastore. This data
  * is used to calculate the performance of the player.
+ * 
+ * @author Prateek Mathur
  */
 @Entity
 public class Player {
 	
 	@Id
-	private String userId;
+	private String playerId;
 	
 	private String name;
 	private int gamesPlayed;
@@ -56,7 +58,7 @@ public class Player {
 		}
 		
 		this.name=name;
-		userId=user.getUserId();
+		playerId=user.getUserId();
 		
 		gamesPlayed=0;
 		wonGames=0;

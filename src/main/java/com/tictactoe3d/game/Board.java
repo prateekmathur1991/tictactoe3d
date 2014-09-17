@@ -34,7 +34,7 @@ import com.googlecode.objectify.annotation.Entity;
  *
  */
 @Entity
-public class Board2D {
+public class Board {
 	public String state;
 	
 	public String getState()	{
