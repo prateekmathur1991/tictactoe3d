@@ -146,7 +146,7 @@ public class TicTacToeApi {
 	// The add3DMove method finds out the no. of free Blocks, calculates a random index between
 	// 1 and freeBlocks, and places an O on that index.
 	
-	// This dumb strategy, ofcourse, does not work. It is used only because I needed a quick
+	// This dumb strategy, of course, does not work. It is used only because I needed a quick
 	// implementation of the game that enables me to get it out of the door ASAP.
 	private char[] add3DMove(char[] boardArray, int freeBlocks)	{
 		int index;
