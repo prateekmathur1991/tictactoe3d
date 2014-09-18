@@ -160,8 +160,9 @@ var clickHandler = function(e)	{
 		// Execute the request, and update the board with the new board state
 		request.execute(function (response)	{
 			updateBoard(response.state);
-			gameStatus = checkForVictory(response.state);
 			
+			// Check the status of the game, and take appropriate action if game cannot continue
+			gameStatus = checkForVictory(response.state);
 			if (gameStatus != UNFINISHED)	{
 				handleFinish(gameStatus);
 			}
