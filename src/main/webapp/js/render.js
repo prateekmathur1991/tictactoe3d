@@ -211,6 +211,7 @@ function updateBoard(boardString)	{
 		// Wherever there is an 'O' in the string, display the image of O
 		if (boardString.charAt(i) == 'O')	{
 			square.innerHTML = stringO;
+			square.removeEventListener('click', clickHandler);
 		}
 	}
 }

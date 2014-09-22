@@ -147,7 +147,7 @@ public class TicTacToeApi {
 	// 1 and freeBlocks, and places an O on that index.
 	
 	// This dumb strategy, of course, does not work. It is used only because I needed a quick
-	// implementation of the game that enables me to get it out of the door ASAP.
+	// implementation of the game that enables me to get the 3D version out of the door ASAP.
 	private char[] add3DMove(char[] boardArray, int freeBlocks)	{
 		int index;
 		

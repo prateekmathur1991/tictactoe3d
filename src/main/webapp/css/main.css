@@ -70,9 +70,6 @@ td {
 	width: 8em;
 	height: 8em;
 	border: 2pt solid #000;
-	-webkit-transition: all .1s;
-	-moz-transition: all .1s;
-	transition: all .1s;
 }
 
 td:hover {
