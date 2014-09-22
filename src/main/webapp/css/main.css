@@ -64,12 +64,16 @@ table {
 	text-align: center;
 	padding: 5pt 0pt;
 	border-spacing: 0pt;
+	-webkit-perspective: 200px; /* Chrome, Safari, Opera  */
+    perspective: 200px;
 }
 
 td {
 	width: 8em;
 	height: 8em;
 	border: 2pt solid #000;
+	-webkit-transform: rotateX(5deg);
+	transform: rotateX(5deg);
 }
 
 td:hover {
