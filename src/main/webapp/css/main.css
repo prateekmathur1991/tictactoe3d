@@ -24,6 +24,8 @@ header, footer	{
 body	{
 	padding : 0px;
 	margin : 0px;
+	-webkit-perspective: 2000px;
+	perspective: 2000px;
 }
 
 #board, #signInSection	{
@@ -64,16 +66,29 @@ table {
 	text-align: center;
 	padding: 5pt 0pt;
 	border-spacing: 0pt;
-	-webkit-perspective: 200px; /* Chrome, Safari, Opera  */
-    perspective: 200px;
+	-webkit-tranform-style: preserve-3d;
 }
+
+#plane0	{
+	-webkit-transform: rotateX(60deg);
+	transform: rotateX(60deg);
+}
+
+#plane1	{
+	-webkit-transform: rotateX(70deg);
+	transform: rotateX(70deg);
+}
+
+#plane2	{
+	-webkit-transform: rotateX(80deg);
+	transform: rotateX(80deg);
+}
+
 
 td {
 	width: 8em;
 	height: 8em;
 	border: 2pt solid #000;
-	-webkit-transform: rotateX(5deg);
-	transform: rotateX(5deg);
 }
 
 td:hover {
@@ -82,20 +97,4 @@ td:hover {
 
 td:active {
 	background: #CFF4FF;
-}
-
-td.noTop {
-	border-top: 0pt;
-}
-
-td.noLeft {
-	border-left: 0pt;
-}
-
-td.noRight {
-	border-right: 0pt;
-}
-
-td.noBottom {
-	border-bottom: 0pt;
 }
