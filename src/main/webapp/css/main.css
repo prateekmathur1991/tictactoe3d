@@ -69,22 +69,6 @@ table {
 	-webkit-tranform-style: preserve-3d;
 }
 
-#plane0	{
-	-webkit-transform: rotateX(60deg);
-	transform: rotateX(60deg);
-}
-
-#plane1	{
-	-webkit-transform: rotateX(70deg);
-	transform: rotateX(70deg);
-}
-
-#plane2	{
-	-webkit-transform: rotateX(80deg);
-	transform: rotateX(80deg);
-}
-
-
 td {
 	width: 8em;
 	height: 8em;
