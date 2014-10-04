@@ -26,68 +26,42 @@ import java.util.List;
  *
  */
 public class Minimax {
-	// To hold the best Move
-	private static char[][] bestMove = null;
+	// We need to do this
+	// 1. Create a static method named minimax, which accepts
+	// the 2D array of board as argument, adds the best move in it,
+	// and returns it.
+	public static int minimax(Board board)	{
+		int bestScore = maxMove(board);
+		return bestScore;
+	}
+
 	
-	/**
-	 * Returns the next best move of the computer given the current board state
-	 * @param board The current board state
-	 * @param player Player whose turn it is
-	 * 
-	 * @return An integer array representing the next best move and its score (score, row, coloum)
-	 */
-	public static int[] minimax(int[] board, char currentPlayer)	{
-		// Find a list of all possible successors
-		List<int[]> successors = generateMoves(board);
-		
-		// Initialize the bestScore
-		int bestScore = (currentPlayer == 'X') ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-		int currentScore;
-		int bestRow = -1; 
-		int bestCol = -1;
-		
-		if (successors.isEmpty())	{
-			// We have reached the terminal node, which should return a 
-			// +ve score if X is playing, and -ve otherwise.
-			bestScore = (currentPlayer == 'X') ? 10 : -10;
+
+	private static int maxMove(Board board) {
+		if (isGameOver(board))	{
+			return evaluateScore(board);
 		}
 		else	{
-			for (int[] successor : successors)	{
-				// We need to see weather this move is optimal
-				// for the current player
-				if (currentPlayer == 'X')	{
-					currentScore = minimax(successor, 'O')[0];
-					if (currentScore > bestScore)	{
-						bestMove = setBestMove(successor);
-						bestScore = currentScore;
-						bestRow = successor[0];
-						bestCol = successor[1];
-					}
-				}
+			Board bestBoard = null;
+			List<Board> nextMoves = findNextMoves(board);
+			board.scores = new int[nextMoves.size()];
+			for (Board move : nextMoves)	{
 				
-				else	{
-					currentScore = minimax(successor, 'X')[0];
-					if (currentScore < bestScore)	{
-						bestMove = setBestMove(successor);
-						bestScore = currentScore;
-						bestRow = successor[0];
-						bestCol = successor[1];
-					}
-				}
 			}
 		}
-		return new int[] {bestScore, bestRow, bestCol};
-		
-		
 	}
 
-	private static char[][] setBestMove(int[] successor) {
+
+
+	private static int evaluateScore(Board board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private static List<Board> findNextMoves(Board board) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private static List<int[]> generateMoves(int[] board) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

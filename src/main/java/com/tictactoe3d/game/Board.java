@@ -36,6 +36,8 @@ import com.googlecode.objectify.annotation.Entity;
 @Entity
 public class Board {
 	public String state;
+	public int[] scores;
+	public int score;
 	
 	public String getState()	{
 		return state;
