@@ -34,6 +34,7 @@ public class Minimax {
 	// 1. Create a static method named minimax, which accepts
 	// the 2D array of board as argument, adds the best move in it,
 	// and returns it.
+<<<<<<< HEAD
 	public static Board play(String boardString)	{
 		char [][] boardArray = convertBoardTo2D(boardString);
 		boardArray = minimax(boardArray, Constants.O);
@@ -68,6 +69,40 @@ public class Minimax {
 	private static Map<Integer, char[][]> getMoves()	{
 		HashMap<Integer, char[][]> allMoves = new HashMap<Integer, char[][]>();
 		
+=======
+	public static int minimax(Board board)	{
+		int bestScore = maxMove(board);
+		return bestScore;
+	}
+
+	
+
+	private static int maxMove(Board board) {
+		if (isGameOver(board))	{
+			return evaluateScore(board);
+		}
+		else	{
+			Board bestBoard = null;
+			List<Board> nextMoves = findNextMoves(board);
+			board.scores = new int[nextMoves.size()];
+			for (Board move : nextMoves)	{
+				
+			}
+		}
+	}
+
+
+
+	private static int evaluateScore(Board board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private static List<Board> findNextMoves(Board board) {
+		// TODO Auto-generated method stub
+>>>>>>> c4a4e405a32f1e693f67dda53a51c53a3704d9ef
 		return null;
 	}
+
+	
 }
