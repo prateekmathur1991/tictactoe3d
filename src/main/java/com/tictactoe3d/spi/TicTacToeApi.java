@@ -40,10 +40,6 @@ import java.util.Random;
 	description="API for 2D Tic Tac Toe"
 )
 public class TicTacToeApi {
-	private static final char X = 'X';
-	private static final char O = 'O';
-	private static final char DASH = '-';
-	
 	/**
 	 * Computes the next move of the computer based on the current state of the board.
 	 * 
@@ -59,7 +55,7 @@ public class TicTacToeApi {
 		 int freeBlocks = 0;
 		 for (int i = 0; i < boardArray.length; i++) {
 			 for (int j = 0; j < boardArray[i].length; j++) {
-		        if (boardArray[i][j] != X && boardArray[i][j] != O) {
+		        if (boardArray[i][j] != Constants.X && boardArray[i][j] != Constants.O) {
 		          freeBlocks++;
 		        }
 		     }
@@ -98,9 +94,9 @@ public class TicTacToeApi {
 		int index = new Random().nextInt(freeBlocks) + 1;
 		for (int i = 0; i < boardArray.length; i++)	{
 	      for (int j = 0; j < boardArray.length; j++)	{
-	    	  if (boardArray[i][j] == DASH) {
+	    	  if (boardArray[i][j] == Constants.DASH) {
 	    		  if (freeBlocks == index) {
-	    			  boardArray[i][j] = O;
+	    			  boardArray[i][j] = Constants.O;
 	    			  return boardArray;
 	    		  } 
 	    		  else {
@@ -125,7 +121,7 @@ public class TicTacToeApi {
 		int freeBlocks = 0;
 		int len = boardArray.length;
 		for (int i = 0; i<len; i++)	{
-			if (boardArray[i] != X && boardArray[i] != O)	{
+			if (boardArray[i] != Constants.X && boardArray[i] != Constants.O)	{
 				freeBlocks++;
 			}
 		}
@@ -153,8 +149,8 @@ public class TicTacToeApi {
 		
 		while (true)	{
 			index = new Random().nextInt(freeBlocks) + 1;
-			if (boardArray[index] == DASH)	{
-				boardArray[index] = O;
+			if (boardArray[index] == Constants.DASH)	{
+				boardArray[index] = Constants.O;
 				return boardArray;
 			}
 		}

@@ -16,7 +16,11 @@
 
 package com.tictactoe3d.game;
 
+import com.tictactoe3d.Constants;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implements the minimax algorithm which is used by the
@@ -26,68 +30,44 @@ import java.util.List;
  *
  */
 public class Minimax {
-	// To hold the best Move
-	private static char[][] bestMove = null;
-	
-	/**
-	 * Returns the next best move of the computer given the current board state
-	 * @param board The current board state
-	 * @param player Player whose turn it is
-	 * 
-	 * @return An integer array representing the next best move and its score (score, row, coloum)
-	 */
-	public static int[] minimax(int[] board, char currentPlayer)	{
-		// Find a list of all possible successors
-		List<int[]> successors = generateMoves(board);
+	// We need to do this
+	// 1. Create a static method named minimax, which accepts
+	// the 2D array of board as argument, adds the best move in it,
+	// and returns it.
+	public static Board play(String boardString)	{
+		char [][] boardArray = convertBoardTo2D(boardString);
+		boardArray = minimax(boardArray, Constants.O);
 		
-		// Initialize the bestScore
-		int bestScore = (currentPlayer == 'X') ? Integer.MIN_VALUE : Integer.MAX_VALUE;
-		int currentScore;
-		int bestRow = -1; 
-		int bestCol = -1;
-		
-		if (successors.isEmpty())	{
-			// We have reached the terminal node, which should return a 
-			// +ve score if X is playing, and -ve otherwise.
-			bestScore = (currentPlayer == 'X') ? 10 : -10;
+		Board updatedBoard = new Board();
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < boardArray.length; i++)	{
+			builder.append(String.valueOf(boardArray[i]));
 		}
-		else	{
-			for (int[] successor : successors)	{
-				// We need to see weather this move is optimal
-				// for the current player
-				if (currentPlayer == 'X')	{
-					currentScore = minimax(successor, 'O')[0];
-					if (currentScore > bestScore)	{
-						bestMove = setBestMove(successor);
-						bestScore = currentScore;
-						bestRow = successor[0];
-						bestCol = successor[1];
-					}
-				}
-				
-				else	{
-					currentScore = minimax(successor, 'X')[0];
-					if (currentScore < bestScore)	{
-						bestMove = setBestMove(successor);
-						bestScore = currentScore;
-						bestRow = successor[0];
-						bestCol = successor[1];
-					}
-				}
-			}
-		}
-		return new int[] {bestScore, bestRow, bestCol};
 		
-		
+		updatedBoard.setState(builder.toString());
+		return updatedBoard;
 	}
-
-	private static char[][] setBestMove(int[] successor) {
-		// TODO Auto-generated method stub
+	
+	private static char[][] convertBoardTo2D(String boardString)	{
+		char[][] boardArray = new char[3][3];
+	    char[] chars = boardString.toCharArray();
+	    if (chars.length == 9) {
+	      for (int i = 0; i < chars.length; i++) {
+	        boardArray[i/3][i%3] = chars[i];
+	      }
+	    }
+	    
+	    return boardArray;
+	}
+	
+	private static char[][] minimax(char[][] boardArray, char player)	{
+		Map<Integer, char[][]> moves = getMoves();
 		return null;
 	}
-
-	private static List<int[]> generateMoves(int[] board) {
-		// TODO Auto-generated method stub
+	
+	private static Map<Integer, char[][]> getMoves()	{
+		HashMap<Integer, char[][]> allMoves = new HashMap<Integer, char[][]>();
+		
 		return null;
 	}
 }
