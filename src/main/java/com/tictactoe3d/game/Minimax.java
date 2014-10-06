@@ -16,7 +16,11 @@
 
 package com.tictactoe3d.game;
 
+import com.tictactoe3d.Constants;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Implements the minimax algorithm which is used by the
@@ -30,6 +34,42 @@ public class Minimax {
 	// 1. Create a static method named minimax, which accepts
 	// the 2D array of board as argument, adds the best move in it,
 	// and returns it.
+<<<<<<< HEAD
+	public static Board play(String boardString)	{
+		char [][] boardArray = convertBoardTo2D(boardString);
+		boardArray = minimax(boardArray, Constants.O);
+		
+		Board updatedBoard = new Board();
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < boardArray.length; i++)	{
+			builder.append(String.valueOf(boardArray[i]));
+		}
+		
+		updatedBoard.setState(builder.toString());
+		return updatedBoard;
+	}
+	
+	private static char[][] convertBoardTo2D(String boardString)	{
+		char[][] boardArray = new char[3][3];
+	    char[] chars = boardString.toCharArray();
+	    if (chars.length == 9) {
+	      for (int i = 0; i < chars.length; i++) {
+	        boardArray[i/3][i%3] = chars[i];
+	      }
+	    }
+	    
+	    return boardArray;
+	}
+	
+	private static char[][] minimax(char[][] boardArray, char player)	{
+		Map<Integer, char[][]> moves = getMoves();
+		return null;
+	}
+	
+	private static Map<Integer, char[][]> getMoves()	{
+		HashMap<Integer, char[][]> allMoves = new HashMap<Integer, char[][]>();
+		
+=======
 	public static int minimax(Board board)	{
 		int bestScore = maxMove(board);
 		return bestScore;
@@ -60,6 +100,7 @@ public class Minimax {
 
 	private static List<Board> findNextMoves(Board board) {
 		// TODO Auto-generated method stub
+>>>>>>> c4a4e405a32f1e693f67dda53a51c53a3704d9ef
 		return null;
 	}
 
