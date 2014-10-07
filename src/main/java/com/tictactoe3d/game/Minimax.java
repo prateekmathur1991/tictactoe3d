@@ -29,6 +29,14 @@ import java.util.Map;
  *
  */
 public class Minimax {
+<<<<<<< HEAD
+=======
+	// We need to do this
+	// 1. Create a static method named minimax, which accepts
+	// the 2D array of board as argument, adds the best move in it,
+	// and returns it.
+<<<<<<< HEAD
+>>>>>>> c13cdd3ad12446855f74c87135e77f1513c9013b
 	public static Board play(String boardString)	{
 		char [][] boardArray = convertBoardTo2D(boardString);
 		boardArray = minimax(boardArray);
@@ -95,6 +103,7 @@ public class Minimax {
 	private static Map<Integer, char[][]> getMoves(char[][] boardArray)	{
 		HashMap<Integer, char[][]> allMoves = new HashMap<Integer, char[][]>();
 		
+<<<<<<< HEAD
 		int validPositions = 0;
 		for (int i = 0; i<3; i++)	{
 			for (int j = 0; j<3; j++)	{
@@ -119,6 +128,41 @@ public class Minimax {
 	private static int evaluateScore(char[][] boardArray) {
 		// TODO Auto-generated method stub
 		return 0;
+=======
+=======
+	public static int minimax(Board board)	{
+		int bestScore = maxMove(board);
+		return bestScore;
+	}
+
+	
+
+	private static int maxMove(Board board) {
+		if (isGameOver(board))	{
+			return evaluateScore(board);
+		}
+		else	{
+			Board bestBoard = null;
+			List<Board> nextMoves = findNextMoves(board);
+			board.scores = new int[nextMoves.size()];
+			for (Board move : nextMoves)	{
+				
+			}
+		}
+	}
+
+
+
+	private static int evaluateScore(Board board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private static List<Board> findNextMoves(Board board) {
+		// TODO Auto-generated method stub
+>>>>>>> c4a4e405a32f1e693f67dda53a51c53a3704d9ef
+		return null;
+>>>>>>> c13cdd3ad12446855f74c87135e77f1513c9013b
 	}
 
 	
