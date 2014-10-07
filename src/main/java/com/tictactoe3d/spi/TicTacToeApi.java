@@ -22,6 +22,7 @@ import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 
 import com.tictactoe3d.Constants;
 import com.tictactoe3d.game.Board;
+import com.tictactoe3d.game.Minimax;
 
 import java.util.Random;
 
@@ -50,6 +51,9 @@ public class TicTacToeApi {
 	public Board compute2DMove(Board board)	{
 		// Convert the String representation of the board in a 2D array
 		char [][] boardArray = convertBoardTo2DArray(board.getState());
+		
+		/*Board newBoard = Minimax.play(board.getState());
+		return newBoard; */
 		
 		// Count the no. of free blocks
 		 int freeBlocks = 0;
