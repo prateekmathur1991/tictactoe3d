@@ -19,7 +19,6 @@ package com.tictactoe3d.game;
 import com.tictactoe3d.Constants;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,13 +29,9 @@ import java.util.Map;
  *
  */
 public class Minimax {
-	// We need to do this
-	// 1. Create a static method named minimax, which accepts
-	// the 2D array of board as argument, adds the best move in it,
-	// and returns it.
 	public static Board play(String boardString)	{
 		char [][] boardArray = convertBoardTo2D(boardString);
-		boardArray = minimax(boardArray, Constants.O);
+		boardArray = minimax(boardArray);
 		
 		Board updatedBoard = new Board();
 		StringBuilder builder = new StringBuilder();
@@ -60,14 +55,71 @@ public class Minimax {
 	    return boardArray;
 	}
 	
-	private static char[][] minimax(char[][] boardArray, char player)	{
-		Map<Integer, char[][]> moves = getMoves();
-		return null;
+	private static char[][] minimax(char[][] boardArray)	{
+		int max = maxValue(boardArray);
+		Map<Integer, char[][]> moves = getMoves(boardArray);
+		
+		return moves.get(max);
 	}
 	
-	private static Map<Integer, char[][]> getMoves()	{
+	private static int maxValue(char[][] boardArray) {
+		int value;
+		if (isGameOver(boardArray))	{
+			return evaluateScore(boardArray);
+		}
+		else	{
+			value = Integer.MIN_VALUE;
+			Map<Integer, char[][]> nextMoves = getMoves(boardArray);
+			for (Map.Entry<Integer, char[][]> mapEntry : nextMoves.entrySet())	{
+				value = Math.max(value, minValue(mapEntry.getValue()));
+			}
+		}
+		return value;
+	}
+	
+	private static int minValue(char[][] boardArray) {
+		int value;
+		if (isGameOver(boardArray))	{
+			return evaluateScore(boardArray);
+		}
+		else	{
+			value = Integer.MAX_VALUE;
+			Map<Integer, char[][]> nextMoves = getMoves(boardArray);
+			for (Map.Entry<Integer, char[][]> mapEntry : nextMoves.entrySet())	{
+				value = Math.min(value, maxValue(mapEntry.getValue()));
+			}
+		}
+		return value;
+	}
+
+	private static Map<Integer, char[][]> getMoves(char[][] boardArray)	{
 		HashMap<Integer, char[][]> allMoves = new HashMap<Integer, char[][]>();
 		
-		return null;
+		int validPositions = 0;
+		for (int i = 0; i<3; i++)	{
+			for (int j = 0; j<3; j++)	{
+				if (boardArray[i][j] == Constants.DASH)	{
+					validPositions++;
+				}
+			}
+		}
+		
+		if (validPositions > 0)	{
+			
+		}
+		
+		return allMoves;
 	}
+		
+	private static boolean isGameOver(char[][] boardArray) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	private static int evaluateScore(char[][] boardArray) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
 }

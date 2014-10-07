@@ -16,7 +16,7 @@
  */
 
 /**
- * Provides methods for UI and interaction with the tictactoe2D API.
+ * Provides methods for UI interaction and communicating with the tictactoe2D API.
  * 
  * @author Prateek Mathur
  */
