@@ -18,8 +18,8 @@ package com.tictactoe3d.game;
 
 import com.tictactoe3d.Constants;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Implements the minimax algorithm which is used by the
@@ -29,6 +29,20 @@ import java.util.Map;
  *
  */
 public class Minimax {
+
+	// The idea is this-
+	// The minimax class has its own boardArray, (remember not to make it static)
+	// and we populate it with board from the client using the constructor.
+	
+	// Then, we do all our work on that boardArray only.
+	
+	private char[][] boardArray;
+	
+	public Minimax()	{
+		
+	}
+	
+
 	public static Board play(String boardString)	{
 		char [][] boardArray = convertBoardTo2D(boardString);
 		boardArray = minimax(boardArray);
@@ -93,7 +107,7 @@ public class Minimax {
 	}
 
 	private static Map<Integer, char[][]> getMoves(char[][] boardArray)	{
-		HashMap<Integer, char[][]> allMoves = new HashMap<Integer, char[][]>();
+		TreeMap<Integer, char[][]> allMoves = new TreeMap<Integer, char[][]>();
 		
 
 		int validPositions = 0;
@@ -105,7 +119,11 @@ public class Minimax {
 			}
 		}
 		
-		if (validPositions > 0)	{
+		if (validPositions == 0)	{
+			return null;
+		}
+		
+		for (int i = 0; i< validPositions; i++)	{
 			
 		}
 		
