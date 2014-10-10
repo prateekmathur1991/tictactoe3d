@@ -29,7 +29,7 @@ import java.util.TreeMap;
  *
  */
 public class Minimax {
-<<<<<<< HEAD
+
 	// The idea is this-
 	// The minimax class has its own boardArray, (remember not to make it static)
 	// and we populate it with board from the client using the constructor.
@@ -42,8 +42,7 @@ public class Minimax {
 		
 	}
 	
-=======
->>>>>>> 5844963960117137a11393a3bb5889961b5fef23
+
 	public static Board play(String boardString)	{
 		char [][] boardArray = convertBoardTo2D(boardString);
 		boardArray = minimax(boardArray);
@@ -110,10 +109,7 @@ public class Minimax {
 	private static Map<Integer, char[][]> getMoves(char[][] boardArray)	{
 		TreeMap<Integer, char[][]> allMoves = new TreeMap<Integer, char[][]>();
 		
-<<<<<<< HEAD
-=======
 
->>>>>>> 5844963960117137a11393a3bb5889961b5fef23
 		int validPositions = 0;
 		for (int i = 0; i<3; i++)	{
 			for (int j = 0; j<3; j++)	{
