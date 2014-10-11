@@ -18,8 +18,9 @@ package com.tictactoe3d.game;
 
 import com.tictactoe3d.Constants;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Implements the minimax algorithm which is used by the
@@ -37,19 +38,15 @@ public class Minimax {
 	// Then, we do all our work on that boardArray only.
 	
 	private char[][] boardArray;
+	private int[] bestMove;
 	
-
 	public Minimax(String boardString)	{
 		boardArray = convertBoardTo2D(boardString);
-
-	public Minimax()	{
-		
 	}
-	
 
-	public static Board play(String boardString)	{
+	public Board play(String boardString)	{
 		char [][] boardArray = convertBoardTo2D(boardString);
-		boardArray = minimax(boardArray);
+		// boardArray = minimax(Constants.O);
 		
 		Board updatedBoard = new Board();
 		StringBuilder builder = new StringBuilder();
@@ -74,27 +71,72 @@ public class Minimax {
 	    return boardArray;
 	}
 	
-	public Board play(String boardString)	{
-		boardArray = minimax(Constants.O);
+	private int minimax(char player)	{
+		int bestScore;
+		bestScore = (player == Constants.O) ? -1 : 1;
 		
-		Board updatedBoard = new Board();
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < boardArray.length; i++)	{
-			builder.append(String.valueOf(boardArray[i]));
+		int currentScore;
+		
+		// TODO 1
+		// Code out the function to get all moves
+		// And this time, let the values return as an array only
+		List<Integer[]> nextMoves = getMoves();
+		
+		if (nextMoves.isEmpty() || isGameOver())	{
+			currentScore = evaluateScore();
 		}
 		
-		updatedBoard.setState(builder.toString());
-		return updatedBoard;
-	}
-	
-	private char[][] minimax(char player)	{
-		int max = maxValue(boardArray);
-		Map<Integer, char[][]> moves = getMoves(boardArray);
+		for (Integer[] move : nextMoves)	{
+			if (player == Constants.O)	{
+				boardArray[move[0]][move[1]] = Constants.O;
+				currentScore = minimax(Constants.X);
+					
+				if (currentScore > bestScore)	{
+					bestScore = currentScore;
+					bestMove = new int[] {move[0], move[1]};
+				}
+			}
+			else if (player == Constants.X)	{
+				boardArray[move[0]][move[1]] = Constants.X;
+				currentScore = minimax(Constants.O);
+					
+				if (currentScore < bestScore)	{
+					bestScore = currentScore;
+					bestMove = new int[] {move[0], move[1]};
+				}
+			}
+				
+			boardArray[move[0]][move[1]] = Constants.DASH;
+		}
 		
-		return moves.get(max);
+		return bestScore;
 	}
 	
-	private static int maxValue(char[][] boardArray) {
+	private List<Integer[]> getMoves()	{
+		List<Integer[]> allMoves = new ArrayList<Integer[]>();
+
+		int validPositions = 0;
+		Integer validMove[];
+		
+		for (int i = 0; i<3; i++)	{
+			for (int j = 0; j<3; j++)	{
+				if (boardArray[i][j] == Constants.DASH)	{
+					validPositions++;
+					validMove = new Integer[] {i, j};
+					allMoves.add(validMove);
+					validPositions++;
+				}
+			}
+		}
+		
+		if (validPositions == 0)	{
+			return null;
+		}
+		
+		return allMoves;
+	}
+	
+	/*private static int maxValue(char[][] boardArray) {
 		int value;
 		if (isGameOver(boardArray))	{
 			return evaluateScore(boardArray);
@@ -122,38 +164,16 @@ public class Minimax {
 			}
 		}
 		return value;
-	}
+	} */
 
-	private static Map<Integer, char[][]> getMoves(char[][] boardArray)	{
-		TreeMap<Integer, char[][]> allMoves = new TreeMap<Integer, char[][]>();
+	
 		
-
-		int validPositions = 0;
-		for (int i = 0; i<3; i++)	{
-			for (int j = 0; j<3; j++)	{
-				if (boardArray[i][j] == Constants.DASH)	{
-					validPositions++;
-				}
-			}
-		}
-		
-		if (validPositions == 0)	{
-			return null;
-		}
-		
-		for (int i = 0; i< validPositions; i++)	{
-			
-		}
-		
-		return allMoves;
-	}
-		
-	private static boolean isGameOver(char[][] boardArray) {
+	private boolean isGameOver() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	private static int evaluateScore(char[][] boardArray) {
+	private int evaluateScore() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
