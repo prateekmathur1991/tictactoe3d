@@ -29,7 +29,7 @@ import java.util.TreeMap;
  *
  */
 public class Minimax {
-<<<<<<< HEAD
+
 	// The idea is this-
 	// The minimax class has its own boardArray, (remember not to make it static)
 	// and we populate it with board from the client using the constructor.
@@ -38,24 +38,8 @@ public class Minimax {
 	
 	private char[][] boardArray;
 	
-	public Minimax()	{
-		
-	}
-	
-=======
->>>>>>> 5844963960117137a11393a3bb5889961b5fef23
-	public static Board play(String boardString)	{
-		char [][] boardArray = convertBoardTo2D(boardString);
-		boardArray = minimax(boardArray);
-		
-		Board updatedBoard = new Board();
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < boardArray.length; i++)	{
-			builder.append(String.valueOf(boardArray[i]));
-		}
-		
-		updatedBoard.setState(builder.toString());
-		return updatedBoard;
+	public Minimax(String boardString)	{
+		boardArray = convertBoardTo2D(boardString);
 	}
 	
 	private static char[][] convertBoardTo2D(String boardString)	{
@@ -70,7 +54,20 @@ public class Minimax {
 	    return boardArray;
 	}
 	
-	private static char[][] minimax(char[][] boardArray)	{
+	public Board play(String boardString)	{
+		boardArray = minimax(Constants.O);
+		
+		Board updatedBoard = new Board();
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < boardArray.length; i++)	{
+			builder.append(String.valueOf(boardArray[i]));
+		}
+		
+		updatedBoard.setState(builder.toString());
+		return updatedBoard;
+	}
+	
+	private char[][] minimax(char player)	{
 		int max = maxValue(boardArray);
 		Map<Integer, char[][]> moves = getMoves(boardArray);
 		
@@ -110,10 +107,7 @@ public class Minimax {
 	private static Map<Integer, char[][]> getMoves(char[][] boardArray)	{
 		TreeMap<Integer, char[][]> allMoves = new TreeMap<Integer, char[][]>();
 		
-<<<<<<< HEAD
-=======
 
->>>>>>> 5844963960117137a11393a3bb5889961b5fef23
 		int validPositions = 0;
 		for (int i = 0; i<3; i++)	{
 			for (int j = 0; j<3; j++)	{
