@@ -38,8 +38,28 @@ public class Minimax {
 	
 	private char[][] boardArray;
 	
+
 	public Minimax(String boardString)	{
 		boardArray = convertBoardTo2D(boardString);
+
+	public Minimax()	{
+		
+	}
+	
+
+	public static Board play(String boardString)	{
+		char [][] boardArray = convertBoardTo2D(boardString);
+		boardArray = minimax(boardArray);
+		
+		Board updatedBoard = new Board();
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < boardArray.length; i++)	{
+			builder.append(String.valueOf(boardArray[i]));
+		}
+		
+		updatedBoard.setState(builder.toString());
+		return updatedBoard;
+
 	}
 	
 	private static char[][] convertBoardTo2D(String boardString)	{
