@@ -19,7 +19,6 @@ package com.tictactoe3d.spi;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiMethod.HttpMethod;
-
 import com.tictactoe3d.Constants;
 import com.tictactoe3d.game.Board;
 import com.tictactoe3d.game.Minimax;
@@ -49,12 +48,27 @@ public class TicTacToeApi {
 	 */
 	@ApiMethod(name="compute2DMove", httpMethod=HttpMethod.POST)
 	public Board compute2DMove(Board board)	{
-		// Convert the String representation of the board in a 2D array
-		char [][] boardArray = convertBoardTo2DArray(board.getState());
+		char[][] boardArray = convertBoardTo2D(board.getState());
 		
-		/*Board newBoard = Minimax.play(board.getState());
-		return newBoard; */
+		Minimax minimax = new Minimax(board.getState());
+		Board updatedBoard = minimax.play();
 		
+		return updatedBoard;
+	}
+	
+	char[][] convertBoardTo2D(String boardString)	{
+		char[][] boardArray = new char[3][3];
+	    char[] chars = boardString.toCharArray();
+	    if (chars.length == 9) {
+	      for (int i = 0; i < chars.length; i++) {
+	        boardArray[i/3][i%3] = chars[i];
+	      }
+	    }
+	    
+	    return boardArray;
+	}
+
+	private Board simpleMove(char[][] boardArray) {
 		// Count the no. of free blocks
 		 int freeBlocks = 0;
 		 for (int i = 0; i < boardArray.length; i++) {
@@ -78,21 +92,9 @@ public class TicTacToeApi {
 		
 		Board updatedBoard = new Board();
 		updatedBoard.setState(builder.toString());
-		
 		return updatedBoard;
 	}
 	
-	private char[][] convertBoardTo2DArray(String boardString)	{
-		char[][] boardArray = new char[3][3];
-	    char[] chars = boardString.toCharArray();
-	    if (chars.length == 9) {
-	      for (int i = 0; i < chars.length; i++) {
-	        boardArray[i/3][i%3] = chars[i];
-	      }
-	    }
-	    
-	    return boardArray;
-	}
 	
 	private char[][] add2DMove(char[][] boardArray, int freeBlocks)	{
 		int index = new Random().nextInt(freeBlocks) + 1;

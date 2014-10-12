@@ -19,7 +19,6 @@ package com.tictactoe3d.game;
 import com.tictactoe3d.Constants;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,25 +29,19 @@ import java.util.List;
  *
  */
 public class Minimax {
-
-	// The idea is this-
-	// The minimax class has its own boardArray, (remember not to make it static)
-	// and we populate it with board from the client using the constructor.
-	
-	// Then, we do all our work on that boardArray only.
-	
 	private char[][] boardArray;
 	private int[] bestMove;
 	
 	public Minimax(String boardString)	{
 		boardArray = convertBoardTo2D(boardString);
 	}
-
-	public Board play(String boardString)	{
-		char [][] boardArray = convertBoardTo2D(boardString);
-		// boardArray = minimax(Constants.O);
-		
+	
+	public Board play()	{
 		Board updatedBoard = new Board();
+		minimax(Constants.O);
+		
+		boardArray[bestMove[0]][bestMove[1]] = Constants.O;
+		
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < boardArray.length; i++)	{
 			builder.append(String.valueOf(boardArray[i]));
@@ -82,7 +75,7 @@ public class Minimax {
 		// And this time, let the values return as an array only
 		List<Integer[]> nextMoves = getMoves();
 		
-		if (nextMoves.isEmpty() || isGameOver())	{
+		if (nextMoves.isEmpty() || hasWon(player))	{
 			currentScore = evaluateScore();
 		}
 		
@@ -115,66 +108,70 @@ public class Minimax {
 	private List<Integer[]> getMoves()	{
 		List<Integer[]> allMoves = new ArrayList<Integer[]>();
 
-		int validPositions = 0;
 		Integer validMove[];
 		
 		for (int i = 0; i<3; i++)	{
 			for (int j = 0; j<3; j++)	{
 				if (boardArray[i][j] == Constants.DASH)	{
-					validPositions++;
 					validMove = new Integer[] {i, j};
 					allMoves.add(validMove);
-					validPositions++;
 				}
 			}
-		}
-		
-		if (validPositions == 0)	{
-			return null;
 		}
 		
 		return allMoves;
 	}
 	
-	/*private static int maxValue(char[][] boardArray) {
-		int value;
-		if (isGameOver(boardArray))	{
-			return evaluateScore(boardArray);
-		}
-		else	{
-			value = Integer.MIN_VALUE;
-			Map<Integer, char[][]> nextMoves = getMoves(boardArray);
-			for (Map.Entry<Integer, char[][]> mapEntry : nextMoves.entrySet())	{
-				value = Math.max(value, minValue(mapEntry.getValue()));
-			}
-		}
-		return value;
-	}
-	
-	private static int minValue(char[][] boardArray) {
-		int value;
-		if (isGameOver(boardArray))	{
-			return evaluateScore(boardArray);
-		}
-		else	{
-			value = Integer.MAX_VALUE;
-			Map<Integer, char[][]> nextMoves = getMoves(boardArray);
-			for (Map.Entry<Integer, char[][]> mapEntry : nextMoves.entrySet())	{
-				value = Math.min(value, maxValue(mapEntry.getValue()));
-			}
-		}
-		return value;
-	} */
-
-	
+	private boolean hasWon(char player)	{
+		boolean status = false;
 		
-	private boolean isGameOver() {
-		// TODO Auto-generated method stub
+		// Check rows
+		for (int i = 0; i < 3; i++)	{
+			status |= (boardArray[i][0] == player) && (boardArray[i][1] == player) && (boardArray[i][2] == player);
+			if (status)	{
+				return true;
+			}
+		}
+		
+		// Check columns
+		for (int i = 0; i < 3; i++)	{
+			status |= (boardArray[0][i] == player) && (boardArray[1][i] == player) && (boardArray[2][i] == player);
+			if (status)	{
+				return true;
+			}
+		}
+		
+		// Check left diagonal
+		status |= (boardArray[0][0] == player) && (boardArray[1][1] == player) && (boardArray[2][2] == player);
+		if (status)	{
+			return true;
+		}
+		
+		// Check right diagonal
+		status |= (boardArray[0][2] == player) && (boardArray[1][1] == player) && (boardArray[2][0] == player);
+		if (status)	{
+			return true;
+		}
+				
 		return false;
 	}
 
 	private int evaluateScore() {
-		// TODO Auto-generated method stub
-		return 0;
+		if (hasWon(Constants.O))	{
+			return +1;
+		}
+		else if (hasWon(Constants.X))	{
+			return -1;
+		}
+		else	{
+			return 0;
+		}
+	}
+	
+	// The main method, included for testing locally
+	public static void main(String[] args)	{
+		Minimax minimax = new Minimax("OO---XXX-");
+		Board newBoard = minimax.play();
+		System.out.println("This is how minimax will play " + newBoard.getState());
 	}
 }
