@@ -51,7 +51,12 @@ public class TicTacToeApi {
 		char[][] boardArray = convertBoardTo2D(board.getState());
 		
 		Minimax minimax = new Minimax(board.getState());
-		Board updatedBoard = minimax.play();
+		Board updatedBoard = null;
+		try {
+			updatedBoard = minimax.play();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return updatedBoard;
 	}

@@ -29,14 +29,38 @@ import java.util.List;
  *
  */
 public class Minimax {
+	/**
+	 * The 2D array that holds the board state for this instance.
+	 */
 	private char[][] boardArray;
+	
+	/**
+	 * An int array that contains the bestMove for this state. Contains 2 elements- [bestRow, bestCol] 
+	 */
 	private int[] bestMove;
 	
+	/**
+	 * The public constructor for Minimax.
+	 * Accepts a string representation of the boardState, and uses it initialize the boardArray for this instance.
+	 * 
+	 * @param boardString
+	 */
 	public Minimax(String boardString)	{
 		boardArray = convertBoardTo2D(boardString);
 	}
 	
-	public Board play()	{
+	/**
+	 * Executes the minimax algorithm on the boardArray. 
+	 * This method should be called only after the boardArray is initialized, or it will throw an Exception.
+	 * 
+	 * @return A board object 
+	 * @thorws Exception If the boardArray is not initialized.
+	 */
+	public Board play() throws Exception	{
+		if (boardArray == null)	{
+			throw new Exception("boardArray is not initialized");
+		}
+		
 		Board updatedBoard = new Board();
 		minimax(Constants.O);
 		
@@ -52,6 +76,12 @@ public class Minimax {
 
 	}
 	
+	/**
+	 * Initializes the boardArray for this instance using the boardString.
+	 * 
+	 * @param boardString A string representing the current board State
+	 * @return boardArray A 2D array generated from the board State
+	 */
 	private static char[][] convertBoardTo2D(String boardString)	{
 		char[][] boardArray = new char[3][3];
 	    char[] chars = boardString.toCharArray();
@@ -64,15 +94,19 @@ public class Minimax {
 	    return boardArray;
 	}
 	
+	/**
+	 * Minimax implementation
+	 * This is a recursive implementation for Minimax.
+	 *
+	 * @param player A char representing whose turn it is
+	 * @return bestScore The best score for the player who is playing
+	 */
 	private int minimax(char player)	{
 		int bestScore;
 		bestScore = (player == Constants.O) ? -1 : 1;
 		
 		int currentScore;
 		
-		// TODO 1
-		// Code out the function to get all moves
-		// And this time, let the values return as an array only
 		List<Integer[]> nextMoves = getMoves();
 		
 		if (nextMoves.isEmpty() || hasWon(player))	{
@@ -105,10 +139,15 @@ public class Minimax {
 		return bestScore;
 	}
 	
+	/**
+	 * Finds and returns a list of all possible next board states for a given state
+	 * 
+	 * @return allMoves An ArrayList of int arrays, containing the [row, col] of the next state
+	 */
 	private List<Integer[]> getMoves()	{
 		List<Integer[]> allMoves = new ArrayList<Integer[]>();
 
-		Integer validMove[];
+		Integer [] validMove;
 		
 		for (int i = 0; i<3; i++)	{
 			for (int j = 0; j<3; j++)	{
@@ -122,6 +161,12 @@ public class Minimax {
 		return allMoves;
 	}
 	
+	/**
+	 * Checks weather a player has won the game or not, by finding possible winning combinations in the board.
+	 * 
+	 * @param player Player whose victory needs to be checked
+	 * @return True if the player has won, false otherwise
+	 */
 	private boolean hasWon(char player)	{
 		boolean status = false;
 		
@@ -156,6 +201,14 @@ public class Minimax {
 		return false;
 	}
 
+	/**
+	 * A deterministic evaluation function for Minimax.
+	 * Returns +1 if computer wins.
+	 * Returns -1 if player wins.
+	 * Returns 0 if game is not over yet, or ends in a draw.
+	 * 
+	 * @return The appropriate score
+	 */
 	private int evaluateScore() {
 		if (hasWon(Constants.O))	{
 			return +1;
@@ -168,10 +221,16 @@ public class Minimax {
 		}
 	}
 	
-	// The main method, included for testing locally
+	/* The main method, included for testing locally
 	public static void main(String[] args)	{
 		Minimax minimax = new Minimax("OO---XXX-");
-		Board newBoard = minimax.play();
+		Board newBoard = null;
+		try {
+			newBoard = minimax.play();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println("This is how minimax will play " + newBoard.getState());
-	}
+	} */
+	
 }
