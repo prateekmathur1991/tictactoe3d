@@ -107,13 +107,13 @@ public class Minimax {
 		
 		int currentScore;
 		
-		List<Integer[]> nextMoves = getMoves();
+		List<int[]> nextMoves = getMoves();
 		
 		if (nextMoves.isEmpty() || hasWon(player))	{
 			currentScore = evaluateScore();
 		}
 		
-		for (Integer[] move : nextMoves)	{
+		for (int[] move : nextMoves)	{
 			if (player == Constants.O)	{
 				boardArray[move[0]][move[1]] = Constants.O;
 				currentScore = minimax(Constants.X);
@@ -144,15 +144,15 @@ public class Minimax {
 	 * 
 	 * @return allMoves An ArrayList of int arrays, containing the [row, col] of the next state
 	 */
-	private List<Integer[]> getMoves()	{
-		List<Integer[]> allMoves = new ArrayList<Integer[]>();
+	private List<int[]> getMoves()	{
+		List<int[]> allMoves = new ArrayList<int[]>();
 
-		Integer [] validMove;
+		int [] validMove;
 		
 		for (int i = 0; i<3; i++)	{
 			for (int j = 0; j<3; j++)	{
 				if (boardArray[i][j] == Constants.DASH)	{
-					validMove = new Integer[] {i, j};
+					validMove = new int[] {i, j};
 					allMoves.add(validMove);
 				}
 			}
