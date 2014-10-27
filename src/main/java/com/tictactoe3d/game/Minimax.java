@@ -220,17 +220,4 @@ public class Minimax {
 			return 0;
 		}
 	}
-	
-	/* The main method, included for testing locally
-	public static void main(String[] args)	{
-		Minimax minimax = new Minimax("OO---XXX-");
-		Board newBoard = null;
-		try {
-			newBoard = minimax.play();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println("This is how minimax will play " + newBoard.getState());
-	} */
-	
 }
