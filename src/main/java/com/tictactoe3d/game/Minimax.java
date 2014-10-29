@@ -19,7 +19,6 @@ package com.tictactoe3d.game;
 import com.tictactoe3d.Constants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Implements the minimax algorithm which is used by the
@@ -30,146 +29,73 @@ import java.util.List;
  */
 public class Minimax {
 	/**
-	 * The 2D array that holds the board state for this instance.
-	 */
-	private char[][] boardArray;
-	
-	/**
-	 * An int array that contains the bestMove for this state. Contains 2 elements- [bestRow, bestCol] 
-	 */
-	private int[] bestMove;
-	
-	/**
-	 * The public constructor for Minimax.
-	 * Accepts a string representation of the boardState, and uses it initialize the boardArray for this instance.
+	 * The play() should be called by the Minimax instance to execute the
+	 * minimax algorithm.
 	 * 
-	 * @param boardString
+	 * @return result A MinimaxResult object containing the result of the game
 	 */
-	public Minimax(String boardString)	{
-		boardArray = convertBoardTo2D(boardString);
-	}
-	
-	/**
-	 * Executes the minimax algorithm on the boardArray. 
-	 * This method should be called only after the boardArray is initialized, or it will throw an Exception.
-	 * 
-	 * @return A board object 
-	 * @thorws Exception If the boardArray is not initialized.
-	 */
-	public Board play() throws Exception	{
-		if (boardArray == null)	{
-			throw new Exception("boardArray is not initialized");
-		}
+	public MinimaxResult minimax(Board board)	{
+		ArrayList<Position> possibleMoves = board.getAllPossibleMoves();
+		Board bestChild = null;
+		int bestScore= Integer.MIN_VALUE;
 		
-		Board updatedBoard = new Board();
-		minimax(Constants.O);
-		
-		boardArray[bestMove[0]][bestMove[1]] = Constants.O;
-		
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < boardArray.length; i++)	{
-			builder.append(String.valueOf(boardArray[i]));
-		}
-		
-		updatedBoard.setState(builder.toString());
-		return updatedBoard;
-
-	}
-	
-	/**
-	 * Initializes the boardArray for this instance using the boardString.
-	 * 
-	 * @param boardString A string representing the current board State
-	 * @return boardArray A 2D array generated from the board State
-	 */
-	private static char[][] convertBoardTo2D(String boardString)	{
-		char[][] boardArray = new char[3][3];
-	    char[] chars = boardString.toCharArray();
-	    if (chars.length == 9) {
-	      for (int i = 0; i < chars.length; i++) {
-	        boardArray[i/3][i%3] = chars[i];
-	      }
-	    }
-	    
-	    return boardArray;
-	}
-	
-	/**
-	 * Minimax implementation
-	 * This is a recursive implementation for Minimax.
-	 *
-	 * @param player A char representing whose turn it is
-	 * @return bestScore The best score for the player who is playing
-	 */
-	private int minimax(char player)	{
-		int bestScore;
-		bestScore = (player == Constants.O) ? -1 : 1;
-		
-		int currentScore;
-		
-		List<int[]> nextMoves = getMoves();
-		
-		if (nextMoves.isEmpty() || hasWon(player))	{
-			currentScore = evaluateScore();
-		}
-		
-		for (int[] move : nextMoves)	{
-			if (player == Constants.O)	{
-				boardArray[move[0]][move[1]] = Constants.O;
-				currentScore = minimax(Constants.X);
-					
-				if (currentScore > bestScore)	{
-					bestScore = currentScore;
-					bestMove = new int[] {move[0], move[1]};
-				}
+		for (Position position : possibleMoves)	{
+			Board child = new Board(board, position, Constants.O);
+			int moveScore = max(child);
+			
+			if (moveScore > bestScore)	{
+				bestChild = child;
+				bestScore = moveScore;
 			}
-			else if (player == Constants.X)	{
-				boardArray[move[0]][move[1]] = Constants.X;
-				currentScore = minimax(Constants.O);
-					
-				if (currentScore < bestScore)	{
-					bestScore = currentScore;
-					bestMove = new int[] {move[0], move[1]};
-				}
+		}
+		
+		MinimaxResult result = new MinimaxResult(bestChild, bestScore);
+		return result;
+	}
+	
+	private int max(Board child) {
+		ArrayList<Position> possibleMoves = child.getAllPossibleMoves();
+		if (possibleMoves.isEmpty())	{
+			int score = evaluateScore(child);
+			return score;
+		}
+		
+		int bestScore = Integer.MIN_VALUE;
+		for (Position position : possibleMoves)	{
+			Board currentChild = new Board(child, position, Constants.X);
+			int moveScore = min(currentChild);
+			
+			if (moveScore > bestScore )	{
+				bestScore = moveScore;
 			}
-				
-			boardArray[move[0]][move[1]] = Constants.DASH;
 		}
 		
 		return bestScore;
 	}
-	
-	/**
-	 * Finds and returns a list of all possible next board states for a given state
-	 * 
-	 * @return allMoves An ArrayList of int arrays, containing the [row, col] of the next state
-	 */
-	private List<int[]> getMoves()	{
-		List<int[]> allMoves = new ArrayList<int[]>();
 
-		int [] validMove;
+	private int min(Board child) {
+		ArrayList<Position> possibleMoves = child.getAllPossibleMoves();
+		if (possibleMoves.isEmpty())	{
+			int score = evaluateScore(child);
+			return score;
+		}
 		
-		for (int i = 0; i<3; i++)	{
-			for (int j = 0; j<3; j++)	{
-				if (boardArray[i][j] == Constants.DASH)	{
-					validMove = new int[] {i, j};
-					allMoves.add(validMove);
-				}
+		int bestScore = Integer.MAX_VALUE;
+		for (Position position : possibleMoves)	{
+			Board currentChild = new Board(child, position, Constants.O);
+			int moveScore = max(currentChild);
+			
+			if (moveScore < bestScore )	{
+				bestScore = moveScore;
 			}
 		}
 		
-		return allMoves;
+		return bestScore;
 	}
-	
-	/**
-	 * Checks weather a player has won the game or not, by finding possible winning combinations in the board.
-	 * 
-	 * @param player Player whose victory needs to be checked
-	 * @return True if the player has won, false otherwise
-	 */
-	private boolean hasWon(char player)	{
+
+	private boolean hasWon(Board board, char player)	{
 		boolean status = false;
-		
+		char [][] boardArray = board.boardArray;
 		// Check rows
 		for (int i = 0; i < 3; i++)	{
 			status |= (boardArray[i][0] == player) && (boardArray[i][1] == player) && (boardArray[i][2] == player);
@@ -200,24 +126,19 @@ public class Minimax {
 				
 		return false;
 	}
-
-	/**
-	 * A deterministic evaluation function for Minimax.
-	 * Returns +1 if computer wins.
-	 * Returns -1 if player wins.
-	 * Returns 0 if game is not over yet, or ends in a draw.
-	 * 
-	 * @return The appropriate score
-	 */
-	private int evaluateScore() {
-		if (hasWon(Constants.O))	{
-			return +1;
-		}
-		else if (hasWon(Constants.X))	{
+	
+	
+	// We have used a deterministic evaluation function for this implementation of Minimax. 
+	// The function simply returns a score of +1 if computer wins, -1 if the user wins,
+	// and 0 in case of a draw.
+	private int evaluateScore(Board board)	{
+		if (hasWon(board, Constants.X))	{
 			return -1;
 		}
-		else	{
-			return 0;
+		else if (hasWon(board, Constants.O))	{
+			return 1;
 		}
+		
+		return 0;
 	}
 }

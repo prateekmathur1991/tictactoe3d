@@ -18,12 +18,16 @@ package com.tictactoe3d.game;
 
 import com.googlecode.objectify.annotation.Entity;
 
+import com.tictactoe3d.game.Position;
+
+import java.util.ArrayList;
+
 /**
  * Represents a 2D Tic Tac Toe Board.
  * 
- * <p>The current state of the board is represented as 
- * a 1D string. For example, ----X---- represents a board with an X in the center,
- * and rest all positions empty.</p>
+ * <p>The current state of the board is represented both as 
+ * a 2D array, and a String. The String representation is retained to
+ * support the code in render.js, so that it does not break.</p>
  * 
  * <p>In the future implementations of this game, the game can support saving the
  * current progress in the cloud, and continuing from where you left off (Hopefully!!). And that is why
@@ -35,13 +39,58 @@ import com.googlecode.objectify.annotation.Entity;
  */
 @Entity
 public class Board {
+	public char[][] boardArray;
 	public String state;
+	
+	public Board(String state)	{
+		boardArray = convertBoardTo2D(state);
+		this.state = state;
+	}
+	
+	public Board(Board board)	{
+		boardArray = convertBoardTo2D(board.getState());
+		this.state = board.getState();
+	}
+	
+	public Board(Board board, Position position, char player)	{
+		boardArray = convertBoardTo2D(board.getState());
+		boardArray[position.row][position.coloumn] = player;
+		
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < boardArray.length; i++)	{
+			builder.append(String.valueOf(boardArray[i]));
+		}
+		
+		this.state = builder.toString();
+	}
 	
 	public String getState()	{
 		return state;
 	}
 	
-	public void setState(String state)	{
-		this.state=state;
+	public char[][] convertBoardTo2D(String boardString)	{
+	    char[][] boardArray = new char[3][3];
+		char[] chars = boardString.toCharArray();
+	    if (chars.length == 9) {
+	      for (int i = 0; i < chars.length; i++) {
+	        boardArray[i/3][i%3] = chars[i];
+	      }
+	    }
+	    
+	    return boardArray;
+	}
+	
+	public ArrayList<Position> getAllPossibleMoves() {
+		ArrayList<Position> allMoves = new ArrayList<Position>();
+		
+		for(int i = 0; i < 3; i++)	{
+			for(int j = 0; j < 3; j++)	{
+				if(boardArray[i][j] == '-')	{
+                	allMoves.add(new Position(i, j));
+                }
+            }
+		}
+                 
+		return allMoves;
 	}
 }

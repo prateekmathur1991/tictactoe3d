@@ -22,6 +22,7 @@ import com.google.api.server.spi.config.ApiMethod.HttpMethod;
 import com.tictactoe3d.Constants;
 import com.tictactoe3d.game.Board;
 import com.tictactoe3d.game.Minimax;
+import com.tictactoe3d.game.MinimaxResult;
 
 import java.util.Random;
 
@@ -48,31 +49,15 @@ public class TicTacToeApi {
 	 */
 	@ApiMethod(name="compute2DMove", httpMethod=HttpMethod.POST)
 	public Board compute2DMove(Board board)	{
-		char[][] boardArray = convertBoardTo2D(board.getState());
+		Minimax minimaxInstance = new Minimax();
+		MinimaxResult result = minimaxInstance.minimax(board);
 		
-		Minimax minimax = new Minimax(board.getState());
-		Board updatedBoard = null;
-		try {
-			updatedBoard = minimax.play();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
+		Board updatedBoard = result.getUpdatedBoard();
 		return updatedBoard;
 	}
 	
-	char[][] convertBoardTo2D(String boardString)	{
-		char[][] boardArray = new char[3][3];
-	    char[] chars = boardString.toCharArray();
-	    if (chars.length == 9) {
-	      for (int i = 0; i < chars.length; i++) {
-	        boardArray[i/3][i%3] = chars[i];
-	      }
-	    }
-	    
-	    return boardArray;
-	}
-
+	
+	@Deprecated
 	private Board simpleMove(char[][] boardArray) {
 		// Count the no. of free blocks
 		 int freeBlocks = 0;
@@ -95,9 +80,9 @@ public class TicTacToeApi {
 			builder.append(String.valueOf(boardArray[i]));
 		}
 		
-		Board updatedBoard = new Board();
-		updatedBoard.setState(builder.toString());
-		return updatedBoard;
+		// Board updatedBoard = new Board();
+		// updatedBoard.setState(builder.toString());
+		return null;
 	}
 	
 	
@@ -144,10 +129,10 @@ public class TicTacToeApi {
 			builder.append(String.valueOf(boardArray[i]));
 		}
 		
-		Board updatedBoard = new Board();
-		updatedBoard.setState(builder.toString());
+		// Board updatedBoard = new Board();
+		// updatedBoard.setState(builder.toString());
 		
-		return updatedBoard;
+		return null;
 	}
 	
 	// The add3DMove method finds out the no. of free Blocks, calculates a random index between
