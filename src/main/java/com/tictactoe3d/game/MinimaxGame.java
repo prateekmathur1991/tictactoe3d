@@ -27,20 +27,20 @@ import java.util.ArrayList;
  * @author Prateek Mathur
  *
  */
-public class Minimax {
+public class MinimaxGame {
 	/**
-	 * The play() should be called by the Minimax instance to execute the
+	 * The play() should be called by the MinimaxGame instance to execute the
 	 * minimax algorithm.
 	 * 
 	 * @return result A MinimaxResult object containing the result of the game
 	 */
-	public MinimaxResult minimax(Board board)	{
+	public MinimaxResult minimax(MinimaxBoard board)	{
 		ArrayList<Position> possibleMoves = board.getAllPossibleMoves();
-		Board bestChild = null;
+		MinimaxBoard bestChild = null;
 		int bestScore= Integer.MIN_VALUE;
 		
 		for (Position position : possibleMoves)	{
-			Board child = new Board(board, position, Constants.O);
+			MinimaxBoard child = new MinimaxBoard(board, position, Constants.O);
 			int moveScore = max(child);
 			
 			if (moveScore > bestScore)	{
@@ -53,7 +53,7 @@ public class Minimax {
 		return result;
 	}
 	
-	private int max(Board child) {
+	private int max(MinimaxBoard child) {
 		ArrayList<Position> possibleMoves = child.getAllPossibleMoves();
 		if (possibleMoves.isEmpty())	{
 			int score = evaluateScore(child);
@@ -62,7 +62,7 @@ public class Minimax {
 		
 		int bestScore = Integer.MIN_VALUE;
 		for (Position position : possibleMoves)	{
-			Board currentChild = new Board(child, position, Constants.X);
+			MinimaxBoard currentChild = new MinimaxBoard(child, position, Constants.X);
 			int moveScore = min(currentChild);
 			
 			if (moveScore > bestScore )	{
@@ -73,7 +73,7 @@ public class Minimax {
 		return bestScore;
 	}
 
-	private int min(Board child) {
+	private int min(MinimaxBoard child) {
 		ArrayList<Position> possibleMoves = child.getAllPossibleMoves();
 		if (possibleMoves.isEmpty())	{
 			int score = evaluateScore(child);
@@ -82,7 +82,7 @@ public class Minimax {
 		
 		int bestScore = Integer.MAX_VALUE;
 		for (Position position : possibleMoves)	{
-			Board currentChild = new Board(child, position, Constants.O);
+			MinimaxBoard currentChild = new MinimaxBoard(child, position, Constants.O);
 			int moveScore = max(currentChild);
 			
 			if (moveScore < bestScore )	{
@@ -93,9 +93,10 @@ public class Minimax {
 		return bestScore;
 	}
 
-	private boolean hasWon(Board board, char player)	{
+	private boolean hasWon(MinimaxBoard board, char player)	{
 		boolean status = false;
 		char [][] boardArray = board.boardArray;
+		
 		// Check rows
 		for (int i = 0; i < 3; i++)	{
 			status |= (boardArray[i][0] == player) && (boardArray[i][1] == player) && (boardArray[i][2] == player);
@@ -128,10 +129,10 @@ public class Minimax {
 	}
 	
 	
-	// We have used a deterministic evaluation function for this implementation of Minimax. 
+	// We have used a deterministic evaluation function for this implementation of MinimaxGame. 
 	// The function simply returns a score of +1 if computer wins, -1 if the user wins,
 	// and 0 in case of a draw.
-	private int evaluateScore(Board board)	{
+	private int evaluateScore(MinimaxBoard board)	{
 		if (hasWon(board, Constants.X))	{
 			return -1;
 		}

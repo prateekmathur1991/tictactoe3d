@@ -18,21 +18,21 @@ package com.tictactoe3d.game;
 
 /**
  * Encapsulates a result set of the minimax algorithm.
- * Consists of the updated Board state, and its score.
+ * Consists of the updated MinimaxBoard state, and its score.
  *  
  * @author PrateekMathur
  *
  */
 public class MinimaxResult {
 	/**
-	 * Board representing the Minimax result
+	 * MinimaxBoard representing the MinimaxGame result
 	 */
-	public Board updatedBoard;
+	public MinimaxBoard updatedBoard;
 	
 	/**
 	 * The score associated to this board
 	 */
-	int score;
+	public int score;
 	
 	/**
 	 * The public constructor for MinimaxResult.
@@ -41,7 +41,7 @@ public class MinimaxResult {
 	 * @param boardState The updated board
 	 * @param score The score associated with this board 
 	 */
-	public MinimaxResult(Board board, int score)	{
+	public MinimaxResult(MinimaxBoard board, int score)	{
 		updatedBoard = board;
 		this.score = score;
 	}
@@ -56,11 +56,11 @@ public class MinimaxResult {
 	}
 	
 	/**
-	 * The getter method for Board
+	 * The getter method for MinimaxBoard
 	 * 
-	 * @return updatedBoard The updated Board
+	 * @return updatedBoard The updated MinimaxBoard
 	 */
-	public Board getUpdatedBoard()	{
+	public MinimaxBoard getUpdatedBoard()	{
 		return updatedBoard;
 	}
 }

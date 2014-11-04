@@ -1,4 +1,3 @@
-
 /*  Copyright 2014 Prateek Mathur
     
     Tic Tac Toe 3D is free software: you can redistribute it and/or modify
