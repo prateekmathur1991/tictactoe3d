@@ -29,12 +29,12 @@ import java.util.ArrayList;
  */
 public class MinimaxGame {
 	/**
-	 * The play() should be called by the MinimaxGame instance to execute the
+	 * This method should be called by the MinimaxGame instance to execute the
 	 * minimax algorithm.
 	 * 
 	 * @return result A MinimaxResult object containing the result of the game
 	 */
-	public MinimaxResult minimax(MinimaxBoard board)	{
+	public MinimaxResult play(MinimaxBoard board)	{
 		ArrayList<Position> possibleMoves = board.getAllPossibleMoves();
 		MinimaxBoard bestChild = null;
 		int bestScore= Integer.MIN_VALUE;
@@ -141,5 +141,18 @@ public class MinimaxGame {
 		}
 		
 		return 0;
+	}
+	
+	// Main method included for debugging purposes
+	public static void main(String args[])	{
+		Board sampleBoard = new Board();
+		sampleBoard.setState("----X----");
+		MinimaxBoard minimaxBoard = new MinimaxBoard(sampleBoard);
+		
+		MinimaxGame game = new MinimaxGame();
+		MinimaxResult result = game.play(minimaxBoard);
+		
+		Board updatedBoard = result.getUpdatedBoard().getBoard();
+		System.out.println(updatedBoard.getState());
 	}
 }

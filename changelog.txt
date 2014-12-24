@@ -1,4 +1,5 @@
 ﻿Updates made to tictactoe3D Project
+DISCLAMER- This is not a formal changelog, and no fixed format has been used to make it. It is just for the sake of recording changes, that's it.
 
 29 August 2014 
 -> Updated and changed the API Key in setApiKey() method, and also added the API root in gapi.client.load() method. This removed the 'UnCaught TypeError' on localhost, but not on appspot.
@@ -67,4 +68,11 @@ __proto__: Object
    in the code. The response form the server does not contain an 'O' at the desired position, but at EACH AND EVERY empty position in the board.
    The code needs to be debugged again throughly, which I, frankly speaking, don't have the time to do.
 
--> (P.S. Please forgive me for not updating the changelog more often.) 
+23 December 2014
+-> Read the last changelog entry and got horrified!!
+
+-> I had replaced the code which was using the minimax algorithm by the older code. Started by debugging procedure by deleting the old code and replacing it
+   by the new code, and executed the game. And then saw the same error again, in which the whole board was getting filled by 'O' all over.
+   
+-> Started debugging the code, and found out that the whole code is messing up in the coding of MinimaxGame.java only. Further investigations are
+   on, and I am pretty sure I will get to the root of the problem very soon. 

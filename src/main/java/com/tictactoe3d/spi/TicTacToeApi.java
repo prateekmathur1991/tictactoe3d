@@ -26,8 +26,6 @@ import com.tictactoe3d.game.MinimaxBoard;
 import com.tictactoe3d.game.MinimaxGame;
 import com.tictactoe3d.game.MinimaxResult;
 
-import java.util.Random;
-
 /**
   * <p>Endpoint API for Tic Tac Toe.<p>
   * 
@@ -51,73 +49,77 @@ public class TicTacToeApi {
 	 */
 	@ApiMethod(name="compute2DMove", httpMethod=HttpMethod.POST)
 	public Board compute2DMove(Board board)	{
-		String boardString = board.getState();
-		char [][] boardArray = convertBoardTo2D(boardString);
-		Board updatedBoard = simpleMove(boardArray);
+		MinimaxBoard minimaxBoard = new MinimaxBoard(board);
+		MinimaxGame game = new MinimaxGame();
+		
+		MinimaxResult result = game.play(minimaxBoard);
+//		char [][] boardArray = convertBoardTo2D(boardString);
+//		Board updatedBoard = simpleMove(boardArray);
+		
+		MinimaxBoard newBoard = result.getUpdatedBoard();
+		Board updatedBoard = newBoard.getBoard();
 		
 		return updatedBoard;
 	}
 	
-	private char[][] convertBoardTo2D(String boardString)	{
-	    char[][] boardArray = new char[3][3];
-		char[] chars = boardString.toCharArray();
-	    if (chars.length == 9) {
-	      for (int i = 0; i < chars.length; i++) {
-	        boardArray[i/3][i%3] = chars[i];
-	      }
-	    }
-	    
-	    return boardArray;
-	}
-	
-	private Board simpleMove(char[][] boardArray) {
-		// Count the no. of free blocks
-		 int freeBlocks = 0;
-		 for (int i = 0; i < boardArray.length; i++) {
-			 for (int j = 0; j < boardArray[i].length; j++) {
-		        if (boardArray[i][j] != Constants.X && boardArray[i][j] != Constants.O) {
-		          freeBlocks++;
-		        }
-		     }
-		 }
-		 
-		// Given the array of blocks and no. of free blocks, we can
-		// find the next optimal move
-		boardArray = add2DMove(boardArray, freeBlocks);
-		   
-		// After adding the computer's move, we need to build a
-		// string of the board, and return it
-		StringBuilder builder = new StringBuilder();
-		for (int i = 0; i < boardArray.length; i++)	{
-			builder.append(String.valueOf(boardArray[i]));
-		}
-		
-		// MinimaxBoard updatedBoard = new MinimaxBoard();
-		// updatedBoard.setState(builder.toString());
-		Board updatedBoard = new Board();
-		updatedBoard.setState(builder.toString());
-		
-		return updatedBoard;
-	}
-	
-	
-	private char[][] add2DMove(char[][] boardArray, int freeBlocks)	{
-		int index = new Random().nextInt(freeBlocks) + 1;
-		for (int i = 0; i < boardArray.length; i++)	{
-	      for (int j = 0; j < boardArray.length; j++)	{
-	    	  if (boardArray[i][j] == Constants.DASH) {
-	    		  if (freeBlocks == index) {
-	    			  boardArray[i][j] = Constants.O;
-	    			  return boardArray;
-	    		  } 
-	    		  else {
-	    			  freeBlocks--;
-	    		  }
-	    	  }
-	      }
-	   }
-	   return boardArray;
-	}
+//	private char[][] convertBoardTo2D(String boardString)	{
+//	    char[][] boardArray = new char[3][3];
+//		char[] chars = boardString.toCharArray();
+//	    if (chars.length == 9) {
+//	      for (int i = 0; i < chars.length; i++) {
+//	        boardArray[i/3][i%3] = chars[i];
+//	      }
+//	    }
+//	    
+//	    return boardArray;
+//	}
+//	
+//	private Board simpleMove(char[][] boardArray) {
+//		// Count the no. of free blocks
+//		 int freeBlocks = 0;
+//		 for (int i = 0; i < boardArray.length; i++) {
+//			 for (int j = 0; j < boardArray[i].length; j++) {
+//		        if (boardArray[i][j] != Constants.X && boardArray[i][j] != Constants.O) {
+//		          freeBlocks++;
+//		        }
+//		     }
+//		 }
+//		 
+//		// Given the array of blocks and no. of free blocks, we can
+//		// find the next optimal move
+//		boardArray = add2DMove(boardArray, freeBlocks);
+//		   
+//		// After adding the computer's move, we need to build a
+//		// string of the board, and return it
+//		StringBuilder builder = new StringBuilder();
+//		for (int i = 0; i < boardArray.length; i++)	{
+//			builder.append(String.valueOf(boardArray[i]));
+//		}
+//		
+//		Board updatedBoard = new Board();
+//		updatedBoard.setState(builder.toString());
+//		
+//		return updatedBoard;
+//	}
+//	
+//	
+//	private char[][] add2DMove(char[][] boardArray, int freeBlocks)	{
+//		int index = new Random().nextInt(freeBlocks) + 1;
+//		for (int i = 0; i < boardArray.length; i++)	{
+//	      for (int j = 0; j < boardArray.length; j++)	{
+//	    	  if (boardArray[i][j] == Constants.DASH) {
+//	    		  if (freeBlocks == index) {
+//	    			  boardArray[i][j] = Constants.O;
+//	    			  return boardArray;
+//	    		  } 
+//	    		  else {
+//	    			  freeBlocks--;
+//	    		  }
+//	    	  }
+//	      }
+//	   }
+//	   return boardArray;
+//	}
 	
 //	@ApiMethod(name="compute3DMove", httpMethod=HttpMethod.POST)
 //	public MinimaxBoard compute3DMove(MinimaxBoard state)	{
