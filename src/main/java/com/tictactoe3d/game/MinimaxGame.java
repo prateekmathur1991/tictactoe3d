@@ -40,7 +40,7 @@ public class MinimaxGame {
 		int bestScore= Integer.MIN_VALUE;
 		
 		for (Position position : possibleMoves)	{
-			MinimaxBoard child = new MinimaxBoard(board, position, Constants.O);
+			MinimaxBoard child = new MinimaxBoard((MinimaxBoard)board.clone(), position, Constants.O);
 			int moveScore = max(child);
 			
 			if (moveScore > bestScore)	{
@@ -62,7 +62,7 @@ public class MinimaxGame {
 		
 		int bestScore = Integer.MIN_VALUE;
 		for (Position position : possibleMoves)	{
-			MinimaxBoard currentChild = new MinimaxBoard(child, position, Constants.X);
+			MinimaxBoard currentChild = new MinimaxBoard((MinimaxBoard)child.clone(), position, Constants.X);
 			int moveScore = min(currentChild);
 			
 			if (moveScore > bestScore )	{
@@ -82,7 +82,7 @@ public class MinimaxGame {
 		
 		int bestScore = Integer.MAX_VALUE;
 		for (Position position : possibleMoves)	{
-			MinimaxBoard currentChild = new MinimaxBoard(child, position, Constants.O);
+			MinimaxBoard currentChild = new MinimaxBoard((MinimaxBoard)child.clone(), position, Constants.O);
 			int moveScore = max(currentChild);
 			
 			if (moveScore < bestScore )	{

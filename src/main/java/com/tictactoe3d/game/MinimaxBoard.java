@@ -17,7 +17,6 @@
 package com.tictactoe3d.game;
 
 import com.googlecode.objectify.annotation.Entity;
-
 import com.tictactoe3d.game.Position;
 
 import java.util.ArrayList;
@@ -38,15 +37,15 @@ import java.util.ArrayList;
  */
 
 @Entity
-public class MinimaxBoard {
+public class MinimaxBoard implements Cloneable {
 	public char[][] boardArray;
 	
 	public MinimaxBoard(Board board)	{
 		boardArray = convertBoardTo2D(board.getState());
 	}
 	
-	public MinimaxBoard(MinimaxBoard minimaxBoard, Position position, char player)	{
-		this.boardArray = minimaxBoard.boardArray;
+	public MinimaxBoard(MinimaxBoard board, Position position, char player)	{
+		this.boardArray = board.boardArray;
 		boardArray[position.row][position.coloumn] = player;
 	}
 	
@@ -87,4 +86,15 @@ public class MinimaxBoard {
                  
 		return allMoves;
 	}
+	
+	@Override
+	public Object clone()	{
+		try	{
+			return (MinimaxBoard)super.clone();
+		}
+		catch(CloneNotSupportedException e)	{
+			return null;
+		}
+	}
+	
 }

@@ -83,3 +83,9 @@ __proto__: Object
 		to this-
 	MinimaxBoard child = new MinimaxBoard(board.clone(), position, 'O')
 And implement the clone() method in the MinimaxBoard class. This will need considerable effort, and will start with this tomorrow.
+
+27 December 2014
+-> Implemented the clone() method in MinimaxBoard after a bit of googling and learning about it
+
+-> Got the same errorenous output again. Tried different solutions to fix it, but could not. So edited the previous question and added the code for MinimaxBoard.java.
+   Also, added appropriate comments in the question to ask for more help. Now, let's hope somebody answers the question correctly.
