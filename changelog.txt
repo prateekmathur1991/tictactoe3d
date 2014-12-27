@@ -75,4 +75,11 @@ __proto__: Object
    by the new code, and executed the game. And then saw the same error again, in which the whole board was getting filled by 'O' all over.
    
 -> Started debugging the code, and found out that the whole code is messing up in the coding of MinimaxGame.java only. Further investigations are
-   on, and I am pretty sure I will get to the root of the problem very soon. 
+   on, and I am pretty sure I will get to the root of the problem very soon.
+
+-> Even after a 2 hour debugging session, could not get to the root of the problem, and hence posted a question on Stack Overflow. Got an answer, which suggests to
+   clone the board whenever I create a new child. Basically, the answer wants me to change this,
+            MinimaxBoard child = new MinimaxBoard(board, position, 'O'), 
+		to this-
+	MinimaxBoard child = new MinimaxBoard(board.clone(), position, 'O')
+And implement the clone() method in the MinimaxBoard class. This will need considerable effort, and will start with this tomorrow.
