@@ -90,7 +90,14 @@ public class MinimaxBoard implements Cloneable {
 	@Override
 	public Object clone()	{
 		try	{
-			return (MinimaxBoard)super.clone();
+			MinimaxBoard clone = (MinimaxBoard)super.clone();
+			clone.boardArray = (char[][])boardArray.clone();
+			
+			for (int row = 0; row < clone.boardArray.length; row++)	{
+				clone.boardArray[row] = (char[])boardArray[row].clone();
+			}
+			
+			return clone;
 		}
 		catch(CloneNotSupportedException e)	{
 			return null;

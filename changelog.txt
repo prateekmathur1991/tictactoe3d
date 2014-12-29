@@ -87,5 +87,13 @@ And implement the clone() method in the MinimaxBoard class. This will need consi
 27 December 2014
 -> Implemented the clone() method in MinimaxBoard after a bit of googling and learning about it
 
--> Got the same errorenous output again. Tried different solutions to fix it, but could not. So edited the previous question and added the code for MinimaxBoard.java.
+-> Got the same erroneous output again. Tried different solutions to fix it, but could not. So edited the previous question and added the code for MinimaxBoard.java.
    Also, added appropriate comments in the question to ask for more help. Now, let's hope somebody answers the question correctly.
+   
+29 December 2014
+-> Got a reply for the previous query, which used deep cloning instead of shallow cloning, as I had earlier tried to do.
+
+-> Updated the clone method in MinimaxBoard.java, and ran the code. And voila!, the bug was fixed. Output was no longer erroneous, and reply from the server
+   was the updated board state containing 'O' at precisely 1 position.
+   
+-> Updated the change to appspot, and also created a commit and pushed it to GitHub. 
