@@ -15,3 +15,7 @@ You can play the game here- [Tic Tac Toe 3D] [1]
 
 
 [1]: https://tic-tac-toe-p.appspot.com/
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/prateekmathur1991/tictactoe3d/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
